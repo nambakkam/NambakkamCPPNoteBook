@@ -1,0 +1,110 @@
+Day 1 - OOP Exercise
+
+I'm going to avoid textbook questions like "What is inheritance?" Instead, here's something closer to what you might discuss in an interview.
+
+Problem: Smart Home Devices
+
+Design a small system to represent different smart home devices.
+
+Requirements:
+
+There are three device types:
+
+Light
+Fan
+AirConditioner
+
+Every device has:
+
+a name
+a power state (ON/OFF)
+
+Every device should support:
+
+turnOn();
+turnOff();
+status();
+
+Additionally,
+
+Light supports
+
+setBrightness(int level);
+
+Fan supports
+
+setSpeed(int speed);
+
+AirConditioner supports
+
+setTemperature(int temp);
+Requirements
+
+Write the design using proper OOP principles.
+
+Your solution should demonstrate:
+
+Encapsulation
+Inheritance
+Runtime polymorphism
+Proper use of virtual functions
+Correct destructor usage
+In main()
+
+Create a collection of devices.
+
+Example:
+
+std::vector<Device*>
+
+or
+
+std::vector<std::unique_ptr<Device>>
+
+Iterate through the collection and call
+
+device->turnOn();
+device->status();
+
+Observe runtime polymorphism.
+
+Bonus (Interview-level)
+
+Suppose tomorrow a new device
+
+SmartCurtain
+
+is introduced.
+
+Can you add it without modifying existing device classes?
+
+If yes, explain why.
+
+Think Before You Code
+
+Before writing any code, answer these questions:
+
+Which members should be private?
+- Attributes like brightness level, power state should be private(protected)
+Which functions should be virtual?
+- The turnOn, turnOff functions are virtual
+Should the destructor be virtual? Why?
+- Destructor needs to be virtual to have the destructor of derived object called when derived class objects are created on base class pointers
+Should status() be virtual?
+no
+Should turnOn() be virtual?
+No, as it wouldn't require further redefinition
+Should you store raw pointers or std::unique_ptr?
+Can any member functions be marked const?
+Is any function a good candidate for override?
+Should Device be instantiable, or should it be an abstract base class?
+
+If you can justify these decisions, you're practicing the kind of reasoning interviewers look for—not just writing code.
+
+Your assignment
+
+Don't worry about making it perfect. Spend 30–60 minutes on it, commit your code to Git (for example, in a daily-cpp repository), and then share it with me.
+
+I'll review it as if I were interviewing a candidate with 4–6 years of C++ experience. I'll point out strengths, weaknesses, suggest improvements, and ask follow-up questions just like a real interviewer would.
+
+If we keep doing this every weekday for a few months, you'll cover a substantial portion of the C++ topics that come up in interviews while building a portfolio of your own solutions.
