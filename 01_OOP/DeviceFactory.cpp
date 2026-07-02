@@ -1,32 +1,39 @@
 #include "DeviceFactory.h"
 #include "IDevice.h"
 #include "Light.h"
-#include "Fan.h"    
+#include "Fan.h"
+#include "AirConditioner.h"
+#include <iostream>
 
-
-std::unique_ptr<IDevice> DeviceFactory::createDevice(DeviceFactory::DeviceType type)
+std::unique_ptr<IDevice> DeviceFactory::createDevice(DeviceType type)
 {
     switch (type)
     {
-    case DeviceType::LIGHT:
-        return std::make_unique<Light>("Light"+std::to_string(referenceCount+1), IDevice::PowerState::OFF, Light::BrightnessLevel::MEDIUM);
-    case DeviceType::FAN:
-        return std::make_unique<Fan>("Fan"+std::to_string(referenceCount+1), IDevice::PowerState::OFF, Fan::FanSpeed::Level1);
-    case DeviceType::AirConditioner:
-        // Assuming AirConditioner class is defined elsewhere
-        // return std::make_unique<AirConditioner>();
-        std::cout << "AirConditioner creation not implemented yet." << std::endl;
-        return nullptr;
-    default:
-        std::cout << "Invalid device type." << std::endl;
-        return nullptr;
+        case DeviceType::LIGHT:
+        {
+            static int lightCount = 0;
+            ++lightCount;
+            return std::make_unique<Light>("Light" + std::to_string(lightCount),
+                                            IDevice::PowerState::OFF,
+                                            Light::BrightnessLevel::MEDIUM);
+        }
+        case DeviceType::FAN:
+        {
+            static int fanCount = 0;
+            ++fanCount;
+            return std::make_unique<Fan>("Fan" + std::to_string(fanCount),
+                                          IDevice::PowerState::OFF,
+                                          Fan::FanSpeed::Level1);
+        }
+        case DeviceType::AIR_CONDITIONER:
+        {
+            static int acCount = 0;
+            ++acCount;
+            return std::make_unique<AirConditioner>("AirConditioner" + std::to_string(acCount),
+                                                    IDevice::PowerState::OFF);
+        }
+        default:
+            std::cout << "Invalid device type.\n";
+            return nullptr;
     }
-    referenceCount++;
-
-}
-
-DeviceFactory &DeviceFactory::getInstance()
-{
-    static DeviceFactory instance;
-    return instance;
 }

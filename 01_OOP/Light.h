@@ -1,37 +1,25 @@
-#ifndef LIGHT_H
-#define LIGHT_H
 #pragma once
 #include "IDevice.h"
-class Light : public IDevice
+
+class Light final : public IDevice
 {
 public:
-    enum class BrightnessLevel
-    {
-        LOW,
-        MEDIUM,
-        HIGH
-    };
-    Light(const std::string& deviceName = "Unnamed Light", PowerState powerState = PowerState::OFF, BrightnessLevel brightnessLevel = BrightnessLevel::MEDIUM);
-    /**
-     * @brief Default virtual destructor.
-     *
-     * The class is not intended to be further derived, so the default
-     * destructor is sufficient. Marking it virtual is a good practice to
-     * ensure correct cleanup if the class is ever used polymorphically.
-     */
-    virtual ~Light();
+    enum class BrightnessLevel { LOW, MEDIUM, HIGH };
 
-    virtual void turnOn() override;
-    virtual void turnOff() override;
-    virtual void status() override;
-    Light::BrightnessLevel getBrightnessLevel();
-    void setBrightnessLevel(Light::BrightnessLevel value);
+    explicit Light(const std::string& deviceName = "Unnamed Light",
+                    PowerState powerState = PowerState::OFF,
+                    BrightnessLevel brightnessLevel = BrightnessLevel::MEDIUM);
 
-protected:
-    Light::BrightnessLevel m_brightnessLevel; 
+    ~Light() override;
 
+    void turnOn() override;
+    void turnOff() override;
+    void status() const override;
 
+    BrightnessLevel getBrightnessLevel() const;
+    void setBrightnessLevel(BrightnessLevel value);
+
+private:
+    BrightnessLevel m_brightnessLevel;
+    static std::string brightnessToString(BrightnessLevel level);
 };
-
-
-#endif

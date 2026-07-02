@@ -1,38 +1,31 @@
-#ifndef IDEVICE_H
-#define IDEVICE_H
-
 #pragma once
-#include <iostream>
 #include <string>
+
 class IDevice
 {
 public:
-    enum class PowerState 
-    {
-        ON,
-        OFF
-    };
+    enum class PowerState { ON, OFF };
 
-    IDevice(const std::string& deviceName = "Unnamed Device",PowerState powerState = PowerState::OFF);
+    explicit IDevice(const std::string& deviceName = "Unnamed Device",
+                      PowerState powerState = PowerState::OFF);
     virtual ~IDevice();
+
+    IDevice(const IDevice&) = delete;
+    IDevice& operator=(const IDevice&) = delete;
+    IDevice(IDevice&&) = delete;
+    IDevice& operator=(IDevice&&) = delete;
 
     virtual void turnOn() = 0;
     virtual void turnOff() = 0;
-    virtual void status() = 0;
-    IDevice::PowerState getPowerState();
-    void setPowerState(IDevice::PowerState value);
-    std::string getDeviceName();
-    void setDeviceName(std::string value); 
+    virtual void status() const = 0;
+
+    PowerState getPowerState() const;
+    void setPowerState(PowerState value);
+
+    const std::string& getDeviceName() const;
+    void setDeviceName(const std::string& value);
 
 protected:
-    IDevice::PowerState m_powerState;
+    PowerState m_powerState;
     std::string m_deviceName;
-
-
 };
-
-
-
-
-
-#endif
