@@ -18,13 +18,13 @@ namespace DeviceEnums {
     };
     Q_ENUM_NS(Type) // Registers the Type enum under this namespace
 
-    enum Status {
+    enum DeviceStates {
         Off,
         On,
-        Standby,
         Error,
         Undefined
     };
-    Q_ENUM_NS(Status) // Registers the Status enum under this namespace
+    Q_ENUM_NS(DeviceStates) // Registers the Status enum under this namespace
+
 }
 #endif // DEVICEENUMS_H
