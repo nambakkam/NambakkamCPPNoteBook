@@ -24,7 +24,12 @@ qt_add_qml_module(appQTQMLBasics
         src/devices/ismartdevice.h
         src/devices/ismartdevice.cpp
         include/deviceenums.h
-        SOURCES src/devices/light.h src/devices/light.cpp
+        src/devices/light.h
+        src/devices/light.cpp
+        src/room.h
+        src/room.cpp
+        SOURCES
+        SOURCES src/smartdevicefactory.h src/smartdevicefactory.cpp
 )
 
 # 4. Include Directories for clean #include paths in C++

@@ -8,7 +8,7 @@ class Light : public ISmartDevice
     Q_OBJECT
     Q_PROPERTY(int brightness READ getBrightness WRITE setBrightness NOTIFY brightnessChanged)
 public:
-    explicit Light(QString deviceNameVal = "",QObject *parent = nullptr);
+    explicit Light(QString deviceNameVal = "Unnamed Light",QObject *parent = nullptr);
     ~Light() override = default;
     void togglePower() override;
     void setBrightness(int level);
