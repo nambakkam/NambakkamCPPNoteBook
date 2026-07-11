@@ -11,15 +11,16 @@ class Room : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QQmlListProperty<ISmartDevice> devices READ getDevices NOTIFY devicesChanged)
-
+    Q_PROPERTY(QString roomName READ getRoomName CONSTANT)
 public:
-    explicit Room(QObject *parent = nullptr);
+    explicit Room(const QString &roomNameVal = "Unknown",QObject *parent = nullptr);
     ~Room(); // Added destructor to clean up devices
 
     Q_INVOKABLE void addDevice(DeviceEnums::Type deviceType, const QString& deviceName);
     Q_INVOKABLE void removeDevice(int index);
 
     QQmlListProperty<ISmartDevice> getDevices();
+    QString getRoomName() const;
 
 signals:
     void devicesChanged();

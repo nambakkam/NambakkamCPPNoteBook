@@ -1,8 +1,8 @@
 #include "room.h"
 #include "smartdevicefactory.h"
 
-Room::Room(QObject *parent)
-    : QObject{parent}
+Room::Room(const QString &roomNameVal, QObject *parent)
+    : m_RoomName(roomNameVal),QObject{parent}
 {}
 
 Room::~Room()
@@ -14,7 +14,7 @@ Room::~Room()
 
 void Room::addDevice(DeviceEnums::Type deviceType, const QString& deviceName)
 {
-    ISmartDevice* newDevice = SmartDeviceFactory::getInstance().createSmartDevice(deviceType, deviceName);
+    ISmartDevice* newDevice = SmartDeviceFactory::getInstance().createSmartDevice(deviceType, deviceName,this);
     if (newDevice) {
         m_devices.append(newDevice);
         emit devicesChanged();
@@ -33,4 +33,9 @@ void Room::removeDevice(int index)
 QQmlListProperty<ISmartDevice> Room::getDevices()
 {
     return QQmlListProperty<ISmartDevice>(this,&m_devices);
+}
+
+QString Room::getRoomName() const
+{
+    return m_RoomName;
 }

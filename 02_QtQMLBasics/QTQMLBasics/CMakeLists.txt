@@ -28,9 +28,12 @@ qt_add_qml_module(appQTQMLBasics
         src/devices/light.cpp
         src/room.h
         src/room.cpp
-        SOURCES
-        SOURCES src/smartdevicefactory.h src/smartdevicefactory.cpp
+        src/smartdevicefactory.h
+        src/smartdevicefactory.cpp
+        src/smartdevicemanager.h
+        src/smartdevicemanager.cpp
 )
+
 
 # 4. Include Directories for clean #include paths in C++
 target_include_directories(appQTQMLBasics PRIVATE

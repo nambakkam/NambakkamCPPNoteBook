@@ -7,7 +7,7 @@ class ISmartDevice : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString getDeviceName READ getDeviceName CONSTANT)
+    Q_PROPERTY(QString deviceName READ getDeviceName CONSTANT)
     Q_PROPERTY(DeviceEnums::Type deviceType READ getDeviceType CONSTANT)
     Q_PROPERTY(DeviceEnums::DeviceStates deviceState READ getDeviceState NOTIFY deviceStateChanged)
 public:

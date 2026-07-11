@@ -2,10 +2,10 @@
 #define DEVICEENUMS_H
 
 #include <QObject>
-
+#include <QtQml/qqmlregistration.h>
 namespace DeviceEnums {
     Q_NAMESPACE
-
+    QML_ELEMENT
     enum Type {
         Light,
         AirConditioner,
