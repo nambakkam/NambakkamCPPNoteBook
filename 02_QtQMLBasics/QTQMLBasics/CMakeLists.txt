@@ -32,6 +32,10 @@ qt_add_qml_module(appQTQMLBasics
         src/smartdevicefactory.cpp
         src/smartdevicemanager.h
         src/smartdevicemanager.cpp
+        src/models/devicelistmodel.h
+        src/models/devicelistmodel.cpp
+        SOURCES src/models/roomsmodel.h src/models/roomsmodel.cpp
+        SOURCES src/devices/airconditioner.cpp src/devices/airconditioner.h
 )
 
 
@@ -40,6 +44,7 @@ target_include_directories(appQTQMLBasics PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}/src/devices
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/models
 )
 
 # 5. Link Libraries

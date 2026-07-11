@@ -5,12 +5,6 @@ Room::Room(const QString &roomNameVal, QObject *parent)
     : m_RoomName(roomNameVal),QObject{parent}
 {}
 
-Room::~Room()
-{
-    // Clean up allocated devices when the room is destroyed
-    qDeleteAll(m_devices);
-    m_devices.clear();
-}
 
 void Room::addDevice(DeviceEnums::Type deviceType, const QString& deviceName)
 {
@@ -30,9 +24,9 @@ void Room::removeDevice(int index)
     }
 }
 
-QQmlListProperty<ISmartDevice> Room::getDevices()
+QVector<ISmartDevice*> Room::getDevices()
 {
-    return QQmlListProperty<ISmartDevice>(this,&m_devices);
+    return m_devices;
 }
 
 QString Room::getRoomName() const

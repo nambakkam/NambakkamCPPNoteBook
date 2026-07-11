@@ -1,40 +1,78 @@
 #include "smartdevicemanager.h"
 
 SmartDeviceManager::SmartDeviceManager(QObject *parent)
-    : QObject{parent}
-{}
-
-SmartDeviceManager::~SmartDeviceManager()
+    : QObject(parent)
+    , m_roomsModel(new RoomsModel(this))
+    , m_deviceModel(new DeviceListModel(this))
 {
-    qDeleteAll(m_rooms);
-    m_rooms.clear();
-
 }
 
-void SmartDeviceManager::addRoom(const QString& roomName)
+RoomsModel* SmartDeviceManager::roomsModel() const { return m_roomsModel; }
+DeviceListModel* SmartDeviceManager::deviceModel() const { return m_deviceModel; }
+Room* SmartDeviceManager::currentRoom() const { return m_currentRoom; }
+
+void SmartDeviceManager::setCurrentRoom(Room* room)
 {
-    Room *newRoom = new Room(roomName,this);
-    if(newRoom){
-        m_rooms.append(newRoom);
-        emit roomsChanged();
+    if (m_currentRoom == room)
+        return;
+
+    if (m_currentRoom) {
+        disconnect(m_currentRoom, &Room::devicesChanged, this, &SmartDeviceManager::refreshDeviceModelData);
     }
+
+    m_currentRoom = room;
+
+    if (m_currentRoom) {
+        connect(m_currentRoom, &Room::devicesChanged, this, &SmartDeviceManager::refreshDeviceModelData);
+    }
+
+    refreshDeviceModelData();
+    emit currentRoomChanged();
+}
+
+void SmartDeviceManager::refreshDeviceModelData()
+{
+    if (m_currentRoom) {
+        m_deviceModel->setDevices(m_currentRoom->getDevices());
+    } else {
+        m_deviceModel->setDevices(QVector<ISmartDevice*>());
+    }
+}
+
+void SmartDeviceManager::addRoom(const QString &roomName)
+{
+    Room* newRoom = new Room(roomName, this);
+    m_rooms.append(newRoom);
+
+    // Update the room model using the shared memory layout of QList/QVector in Qt 6
+    m_roomsModel->updateRooms(m_rooms.toVector());
+    emit roomsChanged();
 }
 
 void SmartDeviceManager::removeRoom(int index)
 {
     if (index >= 0 && index < m_rooms.size()) {
         Room* room = m_rooms.takeAt(index);
-        room->deleteLater(); // Safely delete the QObject
+        if (m_currentRoom == room) {
+            setCurrentRoom(nullptr);
+        }
+        room->deleteLater();
+
+        m_roomsModel->updateRooms(m_rooms.toVector());
         emit roomsChanged();
     }
 }
 
-QString SmartDeviceManager::getTestString()
+void SmartDeviceManager::addDeviceToCurrentRoom(int type, const QString& deviceName)
 {
-    return "TestString";
+    if (m_currentRoom) {
+        m_currentRoom->addDevice(static_cast<DeviceEnums::Type>(type), deviceName);
+    }
 }
 
-QQmlListProperty<Room> SmartDeviceManager::getRooms()
+void SmartDeviceManager::removeDeviceFromCurrentRoom(int index)
 {
-    return QQmlListProperty<Room>(this,&m_rooms);
+    if (m_currentRoom) {
+        m_currentRoom->removeDevice(index);
+    }
 }

@@ -26,5 +26,14 @@ namespace DeviceEnums {
     };
     Q_ENUM_NS(DeviceStates) // Registers the Status enum under this namespace
 
+    enum FanSpeed {
+        Low,
+        Medium,
+        High,
+        Auto,
+        Turbo,  // New addition
+        Nature  // New addition
+    };
+
 }
 #endif // DEVICEENUMS_H
