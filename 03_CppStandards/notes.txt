@@ -1,0 +1,57 @@
+Key Features in C++11
+
+1. Automatic Type Inference (auto)
+
+Allows the compiler to deduce the type of a variable from its initializer, drastically reducing boilerplate (especially with complex iterator types).
+C++
+
+auto x = 42; // int
+auto name = "Modern C++"; // const char*
+
+2. Move Semantics & Rvalue References (&&, std::move)
+
+Enables resources (like dynamically allocated memory) to be moved from temporary objects rather than copied, eliminating unnecessary overhead.
+C++
+
+std::string str1 = "Hello";
+std::string str2 = std::move(str1); // Transfers ownership without copying
+
+3. Smart Pointers (std::unique_ptr, std::shared_ptr)
+
+Automates memory management using RAII to eliminate manual new/delete calls and memory leaks.
+
+    std::unique_ptr: Single ownership (cannot be copied, only moved).
+
+    std::shared_ptr: Shared ownership (reference counted).
+
+4. Lambda Expressions
+
+Allows inline, anonymous functions that can capture local variables.
+C++
+
+auto add = [](int a, int b) { return a + b; };
+
+5. Range-Based for Loops
+
+Provides a simple syntax to iterate over containers without managing iterators manually.
+C++
+
+std::vector<int> nums = {1, 2, 3, 4};
+for (int n : nums) {
+    std::cout << n << " ";
+}
+
+6. Uniform Initialization & Initializer Lists ({})
+
+Standardizes variable and object initialization while preventing implicit narrowing conversions.
+C++
+
+std::vector<int> vec{10, 20, 30}; // Initializer list
+int val{5}; // Uniform initialization
+
+7. Nullptr (nullptr)
+
+Replaces the ambiguous NULL or 0 macro with a strongly-typed null pointer literal.
+8. constexpr
+
+Allows functions or variables to be evaluated at compile time rather than runtime.
