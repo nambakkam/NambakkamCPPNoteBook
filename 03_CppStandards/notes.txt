@@ -30,7 +30,7 @@ Allows inline, anonymous functions that can capture local variables.
 C++
 
 auto add = [](int a, int b) { return a + b; };
-
+[capture](parameter_list) -> return_type { body }
 5. Range-Based for Loops
 
 Provides a simple syntax to iterate over containers without managing iterators manually.
@@ -55,3 +55,57 @@ Replaces the ambiguous NULL or 0 macro with a strongly-typed null pointer litera
 8. constexpr
 
 Allows functions or variables to be evaluated at compile time rather than runtime.
+
+9. decltype Keyword
+
+Key Concurrency Features Introduced in C++11
+1. std::thread
+
+Basic primitive to launch and manage OS-level threads.
+C++
+
+std::thread t([]() { std::cout << "Running in parallel!\n"; });
+t.join(); // Block until t finishes
+
+2. Synchronization (std::mutex, std::lock_guard, std::unique_lock)
+
+Prevents data races when multiple threads access shared resources.
+
+    std::lock_guard: An RAII wrapper that automatically locks the mutex on creation and unlocks it when going out of scope.
+
+C++
+
+std::mutex mtx;
+{
+    std::lock_guard<std::mutex> lock(mtx);
+    // Thread-safe access here
+}
+
+3. Condition Variables (std::condition_variable)
+
+Allows threads to wait for specific events/predicates without busy-looping (consuming 100% CPU).
+C++
+
+std::condition_variable cv;
+std::mutex mtx;
+bool ready = false;
+
+// Waiting thread:
+std::unique_lock<std::mutex> lock(mtx);
+cv.wait(lock, []{ return ready; }); // Releases lock, sleeps, re-acquires lock when notified
+
+4. Async & Promises/Futures (std::async, std::future, std::promise)
+
+Provides high-level task-based parallelism. Allows functions to return values asynchronously.
+C++
+
+auto future = std::async(std::launch::async, []() { return 42; });
+int result = future.get(); // Blocks until value is ready
+
+5. Atomics (std::atomic<T>)
+
+Provides lock-free, thread-safe operations for basic types (integers, booleans).
+C++
+
+std::atomic<int> counter{0};
+counter++; // Thread-safe atomic increment without mutex overhead

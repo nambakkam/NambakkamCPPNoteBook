@@ -36,29 +36,32 @@ void CPP11Features::process()
         auto task1 = std::make_shared<SharedTask>(101, "Data Processing");
         m_sharedTasks.push_back(task1); // Use count becomes 2
 
-        std::cout << "Task ID: " << task1->taskId << ", Task Name: " << task1->taskName 
+        std::cout << "Task ID 1: " << task1->taskId << ", Task Name: " << task1->taskName 
                   << " | Reference Count: " << task1.use_count() << "\n";
 
         auto task2 = task1; // Shared ownership, use count becomes 3
         
-        std::cout << "Task ID: " << task1->taskId << ", Task Name: " << task1->taskName 
+        std::cout << "Task ID 2: " << task2->taskId << ", Task Name: " << task2->taskName 
                   << " | Reference Count: " << task1.use_count() << "\n";
         
         task2.reset(); // Release ownership, use count becomes 2
-        std::cout << "Task ID: " << task1->taskId << ", Task Name: " << task1->taskName 
+        std::cout << "Task ID 3: " << task1->taskId << ", Task Name: " << task1->taskName 
                   << " | Reference Count: " << task1.use_count() << "\n";
         
         auto task3 = std::weak_ptr<SharedTask>(task1); // Weak pointer, does not affect use count
-
-        std::cout << "Task ID: " << task1->taskId << ", Task Name: " << task1->taskName 
+        if(auto locked_task = task3.lock()){
+            std::cout << "Task ID 4: " << locked_task->taskId << ", Task Name: " << locked_task->taskName 
                   << " | Reference Count: " << task1.use_count() << "\n";
+        }
+        std::cout << "Task ID 5: " << task1->taskId << ", Task Name: " << task1->taskName 
+                  << " | Reference Count: " << task1.use_count() << "\n";
+
         // Move resource into smart pointer container
         constexpr int buf_size = calculateDefaultBufferSize(2); // Evaluated at compile-time
         DataBuffer raw_buf(buf_size);
         
         // Move semantics with unique_ptr
-        m_buffers.push_back(std::make_unique<DataBuffer>(std::move(raw_buf)));
-
+        m_buffers.push_back(std::make_unique<DataBuffer>(std::move(raw_buf))); //std::make_unique wasn't available in C++11, but is available in C++14 and later. Since we are using C++17, this is valid.
         std::cout << "Calculated Tax: " << computeTax(1000.0) << "\n";
         std::cout << "Buffer created with size: " << m_buffers.back()->size() << " bytes\n";
 }
@@ -66,7 +69,7 @@ void CPP11Features::process()
 void CPP11Features::runInitializerListDemo(std::initializer_list<int> values)
 {
     std::cout << "Initializer List Demo: ";
-    for(auto val : values) {
+    for(const auto &val : values) {
         std::cout << val << " ";
     }
     std::cout << "\n";
