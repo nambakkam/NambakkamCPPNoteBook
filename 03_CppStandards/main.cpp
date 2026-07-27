@@ -1,9 +1,11 @@
 #include <iostream>
 #include "CPP11Features.h"
+#include "CPP14Features.h"
 #include "Baseprocessor.h"
 #include "CPP11Concurrency.h"
 #include <thread>
 #include <future>
+
 int main() {
     static_assert(CPP11Features::calculateDefaultBufferSize(2) == 2048, "Compile-time buffer size calculation failed.");
 
@@ -28,6 +30,15 @@ int main() {
     std::cout << "Async Factorial(9) Result: " << asyncResult.get() << "\n";
     std::cout << "Total Tasks Processed (Atomic): " << demo.getProcessedCount() << "\n";
     
+
+    /**************CPP 14 Features Demo ************/
+    static_assert(CPP14Features::calculate_checksum(10, 5) == 30, "C++14 constexpr check failed!");
+
+    CPP14Features cpp14demo;
+    std::cout << "--- Executing C++14 Module ---\n";
+    std::cout << "Computed Capacity: " << cpp14demo.compute_capacity(100) << "\n";
+    
+    cpp14demo.demonstrate_lambda_captures();
     return 0;
 
 }

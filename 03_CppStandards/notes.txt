@@ -109,3 +109,55 @@ C++
 
 std::atomic<int> counter{0};
 counter++; // Thread-safe atomic increment without mutex overhead
+
+Key Features Introduced in C++14
+1. std::make_unique
+
+In C++11, we had std::make_shared, but surprisingly missing was std::make_unique. C++14 fixed this. It provides exception safety and cleaner syntax by eliminating explicit new.
+C++
+
+// C++11: std::unique_ptr<int> p(new int(42));
+auto p = std::make_unique<int>(42); // C++14
+
+2. Generic Lambdas (auto in Lambda Parameters)
+
+Lambdas in C++11 required explicit types in parameter lists. C++14 allows auto, effectively creating template lambdas.
+C++
+
+auto print = [](const auto& item) { std::cout << item << "\n"; };
+
+3. Lambda Capture Expressions (Init-Captures / Move-Captures)
+
+Allows you to create new variables inside the lambda capture clause or move non-copyable objects (like std::unique_ptr) into a lambda!
+C++
+
+auto ptr = std::make_unique<int>(100);
+auto lambda = [p = std::move(ptr)]() { std::cout << *p << "\n"; };
+
+4. Relaxed constexpr Rules
+
+C++11 constexpr functions were heavily restricted (basically limited to a single return statement). C++14 relaxed these rules, allowing loops (for, while), local variables, if statements, and mutation inside constexpr functions.
+5. Automatic Return Type Deduction
+
+Functions no longer need trailing return types (-> decltype(...)). The compiler can deduce function return types directly from return statements using auto.
+C++
+
+auto add(int a, int b) { 
+    return a + b; // Deduced as int
+}
+
+6. Binary Literals & Digit Separators
+
+Improves code readability for bitwise operations and large values.
+C++
+
+int mask = 0b1010'0101;  // Binary literal with digit separator
+long capacity = 1'000'000; // Single quote (') ignored by compiler
+
+7. Variable Templates
+
+Templates are no longer restricted to functions and classes; you can now template variables.
+C++
+
+template<typename T>
+constexpr T pi = T(3.1415926535897932385L);
