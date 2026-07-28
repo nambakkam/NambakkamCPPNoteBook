@@ -3,9 +3,11 @@
 
 #include <QObject>
 #include <QtQml/qqmlregistration.h>
+
 namespace DeviceEnums {
     Q_NAMESPACE
     QML_ELEMENT
+
     enum Type {
         Light,
         AirConditioner,
@@ -16,7 +18,7 @@ namespace DeviceEnums {
         SecurityCamera,
         Unknown
     };
-    Q_ENUM_NS(Type) // Registers the Type enum under this namespace
+    Q_ENUM_NS(Type)
 
     enum DeviceStates {
         Off,
@@ -24,16 +26,38 @@ namespace DeviceEnums {
         Error,
         Undefined
     };
-    Q_ENUM_NS(DeviceStates) // Registers the Status enum under this namespace
+    Q_ENUM_NS(DeviceStates)
 
     enum FanSpeed {
         Low,
         Medium,
         High,
         Auto,
-        Turbo,  // New addition
-        Nature  // New addition
+        Turbo,
+        Nature
     };
+    Q_ENUM_NS(FanSpeed)
 
+    enum WashCycle {
+        Cotton,
+        Synthetics,
+        Delicates,
+        QuickWash,
+        Eco,
+        Wool,
+        HeavyDuty,
+        RinseAndSpin
+    };
+    Q_ENUM_NS(WashCycle)
+
+    enum InputSource {
+        TV,
+        HDMI1,
+        HDMI2,
+        HDMI3,
+        AV
+    };
+    Q_ENUM_NS(InputSource)
 }
+
 #endif // DEVICEENUMS_H

@@ -15,8 +15,8 @@ int AirConditioner::targetTemperature() const
 void AirConditioner::setTargetTemperature(int temp)
 {
     // Bound the temperature between realistic hardware constraints (16C - 30C)
-    if (temp < 16) temp = 16;
-    if (temp > 30) temp = 30;
+    if (temp < lowestTempSetting) temp = lowestTempSetting;
+    if (temp > highestTempSetting) temp = highestTempSetting;
 
     if (m_targetTemperature != temp) {
         m_targetTemperature = temp;
@@ -35,5 +35,20 @@ void AirConditioner::setFanSpeed(DeviceEnums::FanSpeed speed)
         m_fanSpeed = speed;
         emit fanSpeedChanged(m_fanSpeed);
     }
+}
+
+int AirConditioner::getLowestTempSetting() const
+{
+    return lowestTempSetting;
+}
+
+int AirConditioner::getHighestTempSetting() const
+{
+    return highestTempSetting;
+}
+
+void AirConditioner::togglePower()
+{
+    ISmartDevice::togglePower();
 }
 

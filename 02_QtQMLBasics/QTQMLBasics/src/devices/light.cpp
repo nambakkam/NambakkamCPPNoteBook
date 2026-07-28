@@ -16,7 +16,12 @@ void Light::setBrightness(int level)
     }
 }
 
-int Light::getBrightness()
+int Light::brightness() const
 {
     return m_brightnessLevel;
+}
+
+void Light::togglePower()
+{
+    ISmartDevice::togglePower();
 }

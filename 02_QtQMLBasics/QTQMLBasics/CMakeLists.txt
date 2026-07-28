@@ -26,6 +26,18 @@ qt_add_qml_module(appQTQMLBasics
         include/deviceenums.h
         src/devices/light.h
         src/devices/light.cpp
+        src/devices/airconditioner.cpp
+        src/devices/airconditioner.h
+        src/devices/fridge.h
+        src/devices/fridge.cpp
+        src/devices/washingmachine.h
+        src/devices/washingmachine.cpp
+        src/devices/television.h
+        src/devices/television.cpp
+        src/devices/smartplug.h
+        src/devices/smartplug.cpp
+        src/devices/securitycamera.h
+        src/devices/securitycamera.cpp
         src/room.h
         src/room.cpp
         src/smartdevicefactory.h
@@ -36,8 +48,7 @@ qt_add_qml_module(appQTQMLBasics
         src/models/devicelistmodel.cpp
         src/models/roomsmodel.h 
         src/models/roomsmodel.cpp
-        src/devices/airconditioner.cpp 
-        src/devices/airconditioner.h
+
 )
 
 

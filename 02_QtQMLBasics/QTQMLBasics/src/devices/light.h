@@ -6,13 +6,14 @@ class Light : public ISmartDevice
 {
 
     Q_OBJECT
-    Q_PROPERTY(int brightness READ getBrightness WRITE setBrightness NOTIFY brightnessChanged)
+    Q_PROPERTY(int brightness READ brightness WRITE setBrightness NOTIFY brightnessChanged)
 public:
     explicit Light(QString deviceNameVal = "Unnamed Light",QObject *parent = nullptr);
     ~Light() override = default;
+    int brightness() const;
+public slots:
+    void togglePower() override;
     void setBrightness(int level);
-    int getBrightness();
-
 private:
     int m_brightnessLevel;
 

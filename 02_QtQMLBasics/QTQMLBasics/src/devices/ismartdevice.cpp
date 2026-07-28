@@ -1,7 +1,7 @@
 #include "ismartdevice.h"
 
 
-ISmartDevice::ISmartDevice(QString deviceNameVal, DeviceEnums::Type deviceTypeVal,DeviceEnums::DeviceStates stateVal, QObject *parent) : m_deviceName(deviceNameVal), m_deviceType(deviceTypeVal),m_deviceState(stateVal),QObject(parent)
+ISmartDevice::ISmartDevice(const QString& deviceNameVal, DeviceEnums::Type deviceTypeVal,DeviceEnums::DeviceStates stateVal, QObject *parent) : m_deviceName(deviceNameVal), m_deviceType(deviceTypeVal),m_deviceState(stateVal),QObject(parent)
 {
 
 }
@@ -34,22 +34,28 @@ void ISmartDevice::togglePower(){
 
     if (roll <= 85) {
         // Normal Toggling Behavior (85% of the time)
-        if (m_deviceState == DeviceEnums::On) {
-            m_deviceState = DeviceEnums::Off;
+        if (getDeviceState() == DeviceEnums::On) {
+            setDeviceState(DeviceEnums::Off);
         } else {
             // If it was Off, Error, or Undefined, turning it on resets/toggles it to On
-            m_deviceState = DeviceEnums::On;
+            setDeviceState(DeviceEnums::On);
         }
     }
     else if (roll > 85 && roll <= 95) {
         // Device Glitch: Error State (10% of the time)
-        m_deviceState = DeviceEnums::Error;
+        setDeviceState(DeviceEnums::Error);
     }
     else {
         // Hardware/Network Drop: Undefined State (5% of the time)
-        m_deviceState = DeviceEnums::Undefined;
+        setDeviceState(DeviceEnums::Undefined);
     }
 
-    // Optional: Emit a signal here if you have a stateChanged signal!
-    emit deviceStateChanged(m_deviceState);
+}
+
+void ISmartDevice::setDeviceState(const DeviceEnums::DeviceStates &state)
+{
+    if(m_deviceState != state){
+        m_deviceState = state;
+        emit deviceStateChanged(m_deviceState);
+    }
 }

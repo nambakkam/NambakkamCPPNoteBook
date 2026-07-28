@@ -8,7 +8,7 @@ public:
     static SmartDeviceFactory& getInstance();
     ISmartDevice* createSmartDevice(DeviceEnums::Type type,const QString& name, QObject* parent = nullptr);
 private:
-    SmartDeviceFactory();
+    SmartDeviceFactory() = default;
     ~SmartDeviceFactory() = default;
     SmartDeviceFactory(const SmartDeviceFactory&) = delete;
     SmartDeviceFactory& operator=(const SmartDeviceFactory&) = delete;
