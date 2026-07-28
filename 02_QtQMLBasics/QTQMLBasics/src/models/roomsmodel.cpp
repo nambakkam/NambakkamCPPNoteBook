@@ -13,14 +13,14 @@ QVariant RoomsModel::data(const QModelIndex &index, int role) const
     if (!index.isValid() || index.row() >= m_rooms.size())
         return QVariant();
 
-    Room* room = m_rooms.at(index.row());
+    QPointer<Room> room = m_rooms.at(index.row());
     if (!room) return QVariant();
 
     switch (role) {
     case RoomNameRole:
         return room->getRoomName();
     case RoomObjectRole:
-        return QVariant::fromValue(room);
+        return QVariant::fromValue(room.data());
     default:
         return QVariant();
     }
@@ -34,7 +34,7 @@ QHash<int, QByteArray> RoomsModel::roleNames() const
     return roles;
 }
 
-void RoomsModel::updateRooms(const QVector<Room*>& rooms)
+void RoomsModel::updateRooms(const QVector<QPointer<Room>> &rooms)
 {
     beginResetModel();
     m_rooms = rooms;

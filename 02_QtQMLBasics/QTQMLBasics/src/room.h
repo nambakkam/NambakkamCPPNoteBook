@@ -4,6 +4,7 @@
 #include <QObject>
 #include <qqmllist.h>
 #include <QVector>
+#include <QPointer>
 #include "ismartdevice.h"
 #include "deviceenums.h"
 
@@ -17,7 +18,7 @@ public:
     Q_INVOKABLE void addDevice(DeviceEnums::Type deviceType, const QString& deviceName);
     Q_INVOKABLE void removeDevice(int index);
 
-    QVector<ISmartDevice*> getDevices();
+    QVector<QPointer<ISmartDevice>> getDevices() const;
     QString getRoomName() const;
 
 signals:

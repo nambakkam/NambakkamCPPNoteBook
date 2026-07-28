@@ -24,9 +24,13 @@ void Room::removeDevice(int index)
     }
 }
 
-QVector<ISmartDevice*> Room::getDevices()
+QVector<QPointer<ISmartDevice>> Room::getDevices() const
 {
-    return m_devices;
+    QVector<QPointer<ISmartDevice>> result;
+    result.reserve(m_devices.size());
+    for (ISmartDevice* device : m_devices)
+        result.append(device); // ISmartDevice* -> QPointer<ISmartDevice>, implicit
+    return result;
 }
 
 QString Room::getRoomName() const

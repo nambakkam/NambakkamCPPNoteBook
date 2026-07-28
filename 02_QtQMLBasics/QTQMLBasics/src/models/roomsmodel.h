@@ -21,10 +21,10 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
 
-    void updateRooms(const QVector<Room*>& rooms);
+    void updateRooms(const QVector<QPointer<Room>>& rooms);
 
 private:
-    QVector<Room*> m_rooms;
+    QVector<QPointer<Room>> m_rooms;
 };
 
 #endif // ROOMSMODEL_H

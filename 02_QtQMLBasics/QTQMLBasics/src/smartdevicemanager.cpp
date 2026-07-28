@@ -35,7 +35,7 @@ void SmartDeviceManager::refreshDeviceModelData()
     if (m_currentRoom) {
         m_deviceModel->setDevices(m_currentRoom->getDevices());
     } else {
-        m_deviceModel->setDevices(QVector<ISmartDevice*>());
+        m_deviceModel->setDevices(QVector<QPointer<ISmartDevice>>());
     }
 }
 

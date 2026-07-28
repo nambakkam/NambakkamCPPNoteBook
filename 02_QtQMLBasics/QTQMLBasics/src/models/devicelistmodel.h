@@ -4,6 +4,7 @@
 #include <QAbstractListModel>
 #include <QVector>
 #include "ismartdevice.h" // Assuming this header defines ISmartDevice and DeviceEnums
+#include <QPointer>
 
 class DeviceListModel : public QAbstractListModel
 {
@@ -24,10 +25,10 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 
     // Method to populate or update the model's data from your Room
-    void setDevices(const QVector<ISmartDevice*>& devices);
+    void setDevices(const QVector<QPointer<ISmartDevice>>& devices);
 
 private:
-    QVector<ISmartDevice*> m_devices;
+    QVector<QPointer<ISmartDevice>> m_devices;
 };
 
 #endif // DEVICELISTMODEL_H

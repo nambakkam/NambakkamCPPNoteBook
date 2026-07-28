@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QQmlListProperty>
 #include <QtQml/qqmlregistration.h>
+#include <QPointer>
 
 #include "room.h"
 #include "roomsmodel.h"
@@ -44,8 +45,8 @@ private slots:
     void refreshDeviceModelData();
 
 private:
-    QList<Room*> m_rooms;
-    Room* m_currentRoom = nullptr;
+    QVector<QPointer<Room>> m_rooms;
+    QPointer<Room> m_currentRoom = nullptr;
 
     // The models are now managed internally
     RoomsModel* m_roomsModel;

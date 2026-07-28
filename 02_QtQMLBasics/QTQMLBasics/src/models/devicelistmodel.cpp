@@ -17,7 +17,7 @@ QVariant DeviceListModel::data(const QModelIndex &index, int role) const
     if (!index.isValid() || index.row() >= m_devices.size())
         return QVariant();
 
-    ISmartDevice* device = m_devices.at(index.row());
+    QPointer<ISmartDevice> device = m_devices.at(index.row());
     if (!device)
         return QVariant();
 
@@ -30,7 +30,7 @@ QVariant DeviceListModel::data(const QModelIndex &index, int role) const
         return device->getDeviceType();
     case DeviceObjectRole:
         // QVariant automatically wraps QObject* pointers for QML engine
-        return QVariant::fromValue(device);
+        return QVariant::fromValue(device.data());
     default:
         return QVariant();
     }
@@ -45,7 +45,7 @@ QHash<int, QByteArray> DeviceListModel::roleNames() const
     return roles;
 }
 
-void DeviceListModel::setDevices(const QVector<ISmartDevice*>& devices)
+void DeviceListModel::setDevices(const QVector<QPointer<ISmartDevice>>& devices)
 {
     beginResetModel();
     m_devices = devices;
