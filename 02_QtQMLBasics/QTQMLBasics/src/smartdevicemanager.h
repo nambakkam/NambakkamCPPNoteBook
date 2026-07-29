@@ -2,9 +2,9 @@
 #define SMARTDEVICEMANAGER_H
 
 #include <QObject>
-#include <QQmlListProperty>
 #include <QtQml/qqmlregistration.h>
 #include <QPointer>
+#include <QVector>
 
 #include "room.h"
 #include "roomsmodel.h"
@@ -16,39 +16,38 @@ class SmartDeviceManager : public QObject
     QML_ELEMENT
     QML_SINGLETON
 
-    // Models exposed directly through the manager
     Q_PROPERTY(RoomsModel* roomsModel READ roomsModel CONSTANT)
     Q_PROPERTY(DeviceListModel* deviceModel READ deviceModel CONSTANT)
-
-    // The currently active room in the UI
-    Q_PROPERTY(Room* currentRoom READ currentRoom WRITE setCurrentRoom NOTIFY currentRoomChanged)
+    Q_PROPERTY(int currentRoomIndex READ currentRoomIndex NOTIFY currentRoomIndexChanged)
 
 public:
     explicit SmartDeviceManager(QObject *parent = nullptr);
 
     RoomsModel* roomsModel() const;
     DeviceListModel* deviceModel() const;
-    Room* currentRoom() const;
-    void setCurrentRoom(Room* room);
 
-    // Single unified interface for UI actions
+    // Dynamic index getter
+    int currentRoomIndex() const;
+
     Q_INVOKABLE void addRoom(const QString &roomName);
     Q_INVOKABLE void removeRoom(int index);
     Q_INVOKABLE void addDeviceToCurrentRoom(int type, const QString& deviceName);
     Q_INVOKABLE void removeDeviceFromCurrentRoom(int index);
+    Q_INVOKABLE void setCurrentRoomIndex(int index);
 
 signals:
     void roomsChanged();
-    void currentRoomChanged();
+    void currentRoomIndexChanged(int newIndex);
 
 private slots:
     void refreshDeviceModelData();
 
 private:
-    QVector<QPointer<Room>> m_rooms;
-    QPointer<Room> m_currentRoom = nullptr;
+    void setCurrentRoom(QPointer<Room> room);
 
-    // The models are now managed internally
+    QVector<QPointer<Room>> m_rooms;
+    QPointer<Room> m_currentRoom; // <-- ONLY state variable you need!
+
     RoomsModel* m_roomsModel;
     DeviceListModel* m_deviceModel;
 };

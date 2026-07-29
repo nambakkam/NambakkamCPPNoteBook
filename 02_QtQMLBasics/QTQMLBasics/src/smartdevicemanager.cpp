@@ -1,17 +1,24 @@
 #include "smartdevicemanager.h"
+#include <QDebug>
 
 SmartDeviceManager::SmartDeviceManager(QObject *parent)
     : QObject(parent)
     , m_roomsModel(new RoomsModel(this))
     , m_deviceModel(new DeviceListModel(this))
+    , m_currentRoom(nullptr)
 {
 }
 
 RoomsModel* SmartDeviceManager::roomsModel() const { return m_roomsModel; }
 DeviceListModel* SmartDeviceManager::deviceModel() const { return m_deviceModel; }
-Room* SmartDeviceManager::currentRoom() const { return m_currentRoom; }
 
-void SmartDeviceManager::setCurrentRoom(Room* room)
+// Dynamically compute index from m_currentRoom pointer
+int SmartDeviceManager::currentRoomIndex() const
+{
+    return m_currentRoom ? m_rooms.indexOf(m_currentRoom) : -1;
+}
+
+void SmartDeviceManager::setCurrentRoom(QPointer<Room> room)
 {
     if (m_currentRoom == room)
         return;
@@ -27,7 +34,65 @@ void SmartDeviceManager::setCurrentRoom(Room* room)
     }
 
     refreshDeviceModelData();
-    emit currentRoomChanged();
+
+    // Emit the new index derived directly from m_currentRoom
+    emit currentRoomIndexChanged(currentRoomIndex());
+}
+
+void SmartDeviceManager::setCurrentRoomIndex(int index)
+{
+    if (index < 0 || index >= m_rooms.size()) {
+        qWarning() << "setCurrentRoomIndex: Index out of bounds:" << index;
+        setCurrentRoom(nullptr);
+        return;
+    }
+
+    // Setting room via pointer automatically updates index and emits signal
+    setCurrentRoom(m_rooms.at(index));
+}
+
+void SmartDeviceManager::addRoom(const QString &roomName)
+{
+    Room* newRoom = new Room(roomName, this);
+    m_rooms.append(newRoom);
+
+    m_roomsModel->updateRooms(m_rooms);
+    emit roomsChanged();
+
+    // First room added? Make it active
+    if (m_rooms.size() == 1) {
+        setCurrentRoom(newRoom);
+    }
+}
+
+void SmartDeviceManager::removeRoom(int index)
+{
+    if (index < 0 || index >= m_rooms.size()) {
+        qWarning() << "removeRoom: Index out of bounds:" << index;
+        return;
+    }
+
+    QPointer<Room> roomToRemove = m_rooms.takeAt(index);
+
+    if (m_currentRoom == roomToRemove) {
+        // If we removed active room, select adjacent room or nullptr
+        if (!m_rooms.isEmpty()) {
+            int newIndex = qMin(index, static_cast<int>(m_rooms.size()) - 1);
+            setCurrentRoom(m_rooms.at(newIndex));
+        } else {
+            setCurrentRoom(nullptr);
+        }
+    } else {
+        // Active room didn't change, BUT its index position might have shifted!
+        emit currentRoomIndexChanged(currentRoomIndex());
+    }
+
+    if (roomToRemove) {
+        roomToRemove->deleteLater();
+    }
+
+    m_roomsModel->updateRooms(m_rooms);
+    emit roomsChanged();
 }
 
 void SmartDeviceManager::refreshDeviceModelData()
@@ -36,30 +101,6 @@ void SmartDeviceManager::refreshDeviceModelData()
         m_deviceModel->setDevices(m_currentRoom->getDevices());
     } else {
         m_deviceModel->setDevices(QVector<QPointer<ISmartDevice>>());
-    }
-}
-
-void SmartDeviceManager::addRoom(const QString &roomName)
-{
-    Room* newRoom = new Room(roomName, this);
-    m_rooms.append(newRoom);
-
-    // Update the room model using the shared memory layout of QList/QVector in Qt 6
-    m_roomsModel->updateRooms(m_rooms.toVector());
-    emit roomsChanged();
-}
-
-void SmartDeviceManager::removeRoom(int index)
-{
-    if (index >= 0 && index < m_rooms.size()) {
-        Room* room = m_rooms.takeAt(index);
-        if (m_currentRoom == room) {
-            setCurrentRoom(nullptr);
-        }
-        room->deleteLater();
-
-        m_roomsModel->updateRooms(m_rooms.toVector());
-        emit roomsChanged();
     }
 }
 

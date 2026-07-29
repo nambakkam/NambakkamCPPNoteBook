@@ -20,6 +20,8 @@ qt_add_qml_module(appQTQMLBasics
     VERSION 1.0
     QML_FILES
         view/Main.qml
+        view/RoomsTabBar.qml
+        view/DevicesGrid.qml
     SOURCES
         src/devices/ismartdevice.h
         src/devices/ismartdevice.cpp
@@ -48,7 +50,6 @@ qt_add_qml_module(appQTQMLBasics
         src/models/devicelistmodel.cpp
         src/models/roomsmodel.h 
         src/models/roomsmodel.cpp
-
 )
 
 
