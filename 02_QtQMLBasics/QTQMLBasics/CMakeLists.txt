@@ -22,6 +22,16 @@ qt_add_qml_module(appQTQMLBasics
         view/Main.qml
         view/RoomsTabBar.qml
         view/DevicesGrid.qml
+        view/RoomTabActions.qml
+        view/AddRoomDialog.qml
+        view/DeviceCards/DeviceCard.qml
+        view/DeviceCards/AirConditionerControls.qml
+        view/DeviceCards/FridgeControls.qml
+        view/DeviceCards/LightControls.qml
+        view/DeviceCards/PlugControls.qml
+        view/DeviceCards/SecurityCameraControls.qml
+        view/DeviceCards/TelevisionControls.qml
+        view/DeviceCards/WashingMachineControls.qml
     SOURCES
         src/devices/ismartdevice.h
         src/devices/ismartdevice.cpp

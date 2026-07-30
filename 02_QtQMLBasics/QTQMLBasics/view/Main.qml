@@ -6,8 +6,8 @@ import QTQMLBasics 1.0
 ApplicationWindow {
     id: root
     visible: true
-    width: 950
-    height: 700
+    width: 800
+    height: 480
     title: "Smart Home Manager - Full Device Suite Test"
 
     // Seed test data when application loads
@@ -29,29 +29,56 @@ ApplicationWindow {
 
         SmartDeviceManager.setCurrentRoomIndex(2)
         SmartDeviceManager.addDeviceToCurrentRoom(DeviceEnums.Light, "Laundry Light")
-
+        checkRoomTabBar.currentIndex = SmartDeviceManager.currentRoomIndex
     }
 
     RoomsTabBar {
         id: checkRoomTabBar
+        width: parent.width - roomTabActions.width
         height: 40
         currentIndex: SmartDeviceManager.currentRoomIndex
         anchors {
             top: parent.top
             left: parent.left
-            right: parent.right
         }
         onCurrentIndexChanged: {
             SmartDeviceManager.setCurrentRoomIndex(checkRoomTabBar.currentIndex)
         }
     }
+    RoomTabActions{
+        id:roomTabActions
+        width: 80
+        height: 40
+        anchors{
+            top: parent.top
+            right: parent.right
+        }
+        onAddRoomClicked: {
+            addRoomDialog.open()
+
+        }
+        onSettingsClicked: {
+
+        }
+    }
+
     DevicesGrid{
         id:deviceGridLayout
         width: parent.width
         height: parent.height-checkRoomTabBar.height
         anchors{
             top:checkRoomTabBar.bottom
-            horizontalCenter: checkRoomTabBar.horizontalCenter
+            horizontalCenter: parent.horizontalCenter
         }
     }
+
+    AddRoomDialog {
+            id: addRoomDialog
+            width: root.width*0.4
+            height: root.height*0.8
+            // 3. On valid input, pass name directly to C++ backend
+            onRoomAdded: function(roomName) {
+                SmartDeviceManager.addRoom(roomName)
+            }
+        }
 }
