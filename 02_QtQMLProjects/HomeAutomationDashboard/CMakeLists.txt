@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(QTQMLBasics VERSION 0.1 LANGUAGES CXX)
+project(HomeAutomationDashboard VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -16,7 +16,7 @@ qt_add_executable(appQTQMLBasics
 
 # 3. Configure the QML Module and Source Files
 qt_add_qml_module(appQTQMLBasics
-    URI QTQMLBasics
+    URI HomeAutomationDashboard
     VERSION 1.0
     QML_FILES
         view/Main.qml
