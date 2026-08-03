@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QTQMLBasics 1.0
+import HomeAutomationDashboard 1.0
 Rectangle {
     id: root
     implicitWidth: 170

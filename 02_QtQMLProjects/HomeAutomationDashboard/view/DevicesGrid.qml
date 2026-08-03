@@ -4,6 +4,7 @@ import "DeviceCards"
 Rectangle{
     id:deviceGridBackground
     color: "#e6e9ee"
+    signal addDeviceClicked()
     GridLayout {
         id: devicesGrid
         columns: 4
@@ -21,8 +22,16 @@ Rectangle{
                 implicitHeight: parent.height/3
             }
         }
-
+        AddNewDevice{
+            id:plusIcon
+            implicitWidth:devicesGrid.width/devicesGrid.columns - 2*devicesGrid.columnSpacing
+            implicitHeight: parent.height/3
+            onClicked: {
+                addDeviceClicked()
+            }
+        }
     }
 }
+
 
 

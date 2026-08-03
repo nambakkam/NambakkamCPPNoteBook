@@ -19,6 +19,7 @@ class SmartDeviceManager : public QObject
     Q_PROPERTY(RoomsModel* roomsModel READ roomsModel CONSTANT)
     Q_PROPERTY(DeviceListModel* deviceModel READ deviceModel CONSTANT)
     Q_PROPERTY(int currentRoomIndex READ currentRoomIndex NOTIFY currentRoomIndexChanged)
+    Q_PROPERTY(QVariantList deviceTypeModel READ deviceTypeModel CONSTANT)
 
 public:
     explicit SmartDeviceManager(QObject *parent = nullptr);
@@ -34,6 +35,7 @@ public:
     Q_INVOKABLE void addDeviceToCurrentRoom(int type, const QString& deviceName);
     Q_INVOKABLE void removeDeviceFromCurrentRoom(int index);
     Q_INVOKABLE void setCurrentRoomIndex(int index);
+    QVariantList deviceTypeModel() const;
 
 signals:
     void roomsChanged();

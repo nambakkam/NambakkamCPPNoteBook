@@ -10,12 +10,12 @@ find_package(Qt6 REQUIRED COMPONENTS Quick)
 qt_standard_project_setup(REQUIRES 6.8)
 
 # 2. Define the Target with its main entry point
-qt_add_executable(appQTQMLBasics
+qt_add_executable(appHomeAutomationDashboard
     src/main.cpp
 )
 
 # 3. Configure the QML Module and Source Files
-qt_add_qml_module(appQTQMLBasics
+qt_add_qml_module(appHomeAutomationDashboard
     URI HomeAutomationDashboard
     VERSION 1.0
     QML_FILES
@@ -32,6 +32,8 @@ qt_add_qml_module(appQTQMLBasics
         view/DeviceCards/SecurityCameraControls.qml
         view/DeviceCards/TelevisionControls.qml
         view/DeviceCards/WashingMachineControls.qml
+        view/DeviceCards/AddNewDevice.qml
+        view/AddDeviceDialog.qml
     SOURCES
         src/devices/ismartdevice.h
         src/devices/ismartdevice.cpp
@@ -60,11 +62,13 @@ qt_add_qml_module(appQTQMLBasics
         src/models/devicelistmodel.cpp
         src/models/roomsmodel.h 
         src/models/roomsmodel.cpp
+    RESOURCES
+        view/Assets/addDevice.svg
 )
 
 
 # 4. Include Directories for clean #include paths in C++
-target_include_directories(appQTQMLBasics PRIVATE
+target_include_directories(appHomeAutomationDashboard PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}/src/devices
@@ -72,12 +76,12 @@ target_include_directories(appQTQMLBasics PRIVATE
 )
 
 # 5. Link Libraries
-target_link_libraries(appQTQMLBasics
+target_link_libraries(appHomeAutomationDashboard
     PRIVATE Qt6::Quick
 )
 
 # 6. Global App Target Properties (Window/OS specific)
-set_target_properties(appQTQMLBasics PROPERTIES
+set_target_properties(appHomeAutomationDashboard PROPERTIES
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
@@ -86,7 +90,7 @@ set_target_properties(appQTQMLBasics PROPERTIES
 
 # 7. Installation Setup
 include(GNUInstallDirs)
-install(TARGETS appQTQMLBasics
+install(TARGETS appHomeAutomationDashboard
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}

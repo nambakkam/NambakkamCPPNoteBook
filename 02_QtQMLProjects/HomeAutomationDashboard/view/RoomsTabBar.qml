@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Controls
-import QTQMLBasics 1.0
+import HomeAutomationDashboard 1.0
 
 TabBar {
     id: roomTabs

@@ -51,6 +51,19 @@ void SmartDeviceManager::setCurrentRoomIndex(int index)
     setCurrentRoom(m_rooms.at(index));
 }
 
+QVariantList SmartDeviceManager::deviceTypeModel() const
+{
+    return QVariantList{
+        QVariantMap{{"name", "Light"},           {"type", DeviceEnums::Light},          {"prefix", "Smart Light"}},
+        QVariantMap{{"name", "Air Conditioner"}, {"type", DeviceEnums::AirConditioner}, {"prefix", "AC Unit"}},
+        QVariantMap{{"name", "Refrigerator"},    {"type", DeviceEnums::Fridge},         {"prefix", "Fridge"}},
+        QVariantMap{{"name", "Washing Machine"}, {"type", DeviceEnums::WashingMachine}, {"prefix", "Washing Machine"}},
+        QVariantMap{{"name", "Television"},      {"type", DeviceEnums::Television},     {"prefix", "Smart TV"}},
+        QVariantMap{{"name", "Smart Plug"},      {"type", DeviceEnums::SmartPlug},      {"prefix", "Smart Plug"}},
+        QVariantMap{{"name", "Security Camera"}, {"type", DeviceEnums::SecurityCamera}, {"prefix", "Camera"}}
+    };
+}
+
 void SmartDeviceManager::addRoom(const QString &roomName)
 {
     Room* newRoom = new Room(roomName, this);

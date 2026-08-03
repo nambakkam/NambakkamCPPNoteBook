@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
         &app,
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
-    engine.loadFromModule("QTQMLBasics", "Main");
+    engine.loadFromModule("HomeAutomationDashboard", "Main");
 
     return app.exec();
 }
