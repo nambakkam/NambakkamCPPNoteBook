@@ -16,7 +16,7 @@ ColumnLayout {
         spacing: 4
 
         Text {
-            text: model.powerDraw !== undefined ? model.powerDraw : "0"
+            text: model.deviceObject.currentPowerWatts !== undefined ? model.deviceObject.currentPowerWatts : "0"
             font.pixelSize: 20
             font.bold: true
             color: "#1c1d20"

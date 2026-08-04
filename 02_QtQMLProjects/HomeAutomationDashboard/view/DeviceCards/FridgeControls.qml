@@ -14,7 +14,7 @@ ColumnLayout {
             Layout.fillWidth: true
         }
         Text {
-            text: (model.fridgeTemp !== undefined ? model.fridgeTemp : 3) + "°C"
+            text: (model.deviceObject.fridgeTemperature !== undefined ? model.deviceObject.fridgeTemperature : 3) + "°C"
             font.pixelSize: 13
             font.bold: true
             color: "#1c1d20"
@@ -30,7 +30,7 @@ ColumnLayout {
             Layout.fillWidth: true
         }
         Text {
-            text: (model.freezerTemp !== undefined ? model.freezerTemp : -18) + "°C"
+            text: (model.deviceObject.freezerTemperature !== undefined ? model.deviceObject.freezerTemperature : -18) + "°C"
             font.pixelSize: 13
             font.bold: true
             color: "#1c1d20"

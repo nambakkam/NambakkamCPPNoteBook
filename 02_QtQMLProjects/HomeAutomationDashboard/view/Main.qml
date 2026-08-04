@@ -10,28 +10,6 @@ ApplicationWindow {
     height: 480
     title: "Smart Home Manager - Full Device Suite Test"
 
-    // Seed test data when application loads
-    // Component.onCompleted: {
-    //     SmartDeviceManager.addRoom("Living Room")
-    //     SmartDeviceManager.addRoom("Kitchen")
-    //     SmartDeviceManager.addRoom("Laundry Room")
-
-
-    //         // Add initial test devices (using Enum values)
-    //     SmartDeviceManager.setCurrentRoomIndex(0)
-
-    //     SmartDeviceManager.addDeviceToCurrentRoom(DeviceEnums.Light, "Main Ceiling Light")
-    //     SmartDeviceManager.addDeviceToCurrentRoom(DeviceEnums.AirConditioner, "Living Room AC")
-    //     SmartDeviceManager.addDeviceToCurrentRoom(DeviceEnums.Television, "Smart OLED TV")
-
-    //     SmartDeviceManager.setCurrentRoomIndex(1)
-    //     SmartDeviceManager.addDeviceToCurrentRoom(DeviceEnums.Light, "Kitchen Light")
-
-    //     SmartDeviceManager.setCurrentRoomIndex(2)
-    //     SmartDeviceManager.addDeviceToCurrentRoom(DeviceEnums.Light, "Laundry Light")
-    //     checkRoomTabBar.currentIndex = SmartDeviceManager.currentRoomIndex
-    // }
-
     RoomsTabBar {
         id: checkRoomTabBar
         width: parent.width - roomTabActions.width

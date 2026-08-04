@@ -13,14 +13,14 @@ ColumnLayout {
     }
 
     Text {
-        text: model.statusText !== undefined ? model.statusText : "Idle"
+        text: model.deviceObject.isRunning !== undefined ? (model.deviceObject.isRunning ? "Running" : "Idle") : "Idle"
         font.pixelSize: 14
         font.bold: true
         color: "#1c1d20"
     }
 
     Text {
-        text: model.timeRemaining !== undefined ? (model.timeRemaining + " min left") : "Ready"
+        text: model.deviceObject.timeRemainingMinutes !== undefined ? (model.deviceObject.timeRemainingMinutes + " min left") : "Ready"
         font.pixelSize: 11
         color: "#5688b9"
     }

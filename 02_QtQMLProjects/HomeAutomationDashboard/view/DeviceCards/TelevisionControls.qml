@@ -17,7 +17,7 @@ ColumnLayout {
         Layout.fillWidth: true
         from: 0
         to: 100
-        value: model.volume !== undefined ? model.volume : 20
+        value: model.deviceObject.volume !== undefined ? model.deviceObject.volume : 20
 
         background: Rectangle {
             x: volSlider.leftPadding
@@ -47,7 +47,7 @@ ColumnLayout {
         }
 
         onValueChanged: {
-            if (model.volume !== undefined) model.volume = Math.round(value)
+            if (model.deviceObject.volume !== undefined) model.deviceObject.volume = Math.round(value)
         }
     }
 }
