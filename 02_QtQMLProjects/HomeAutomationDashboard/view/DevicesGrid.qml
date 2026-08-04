@@ -1,37 +1,54 @@
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import "DeviceCards"
-Rectangle{
-    id:deviceGridBackground
+
+Rectangle {
+    id: deviceGridBackground
     color: "#e6e9ee"
     signal addDeviceClicked()
-    GridLayout {
-        id: devicesGrid
-        columns: 4
-        anchors{
+
+    ScrollView {
+        id: devicesScrollView
+        anchors {
             fill: parent
-            margins:30
+            margins: 30
         }
-        property var devicesModel: SmartDeviceManager.deviceModel
-        Repeater{
-            id:devices
-            model: devicesGrid.devicesModel
-            DeviceCard{
-                id:deviceRect
-                implicitWidth:devicesGrid.width/devicesGrid.columns - 2*devicesGrid.columnSpacing
-                implicitHeight: parent.height/3
+        clip: true
+
+        Flow {
+            id: devicesFlow
+            width: devicesScrollView.availableWidth
+            spacing: 16
+
+            readonly property int columns: 4
+            readonly property real cardWidth: (width - (columns - 1) * spacing) / columns
+
+            property var devicesModel: SmartDeviceManager.deviceModel
+
+            Repeater {
+                id: devices
+                model: devicesFlow.devicesModel
+
+                DeviceCard {
+                    id:deviceCard
+                    width: devicesFlow.cardWidth
+                    height: 160
+                }
             }
-        }
-        AddNewDevice{
-            id:plusIcon
-            implicitWidth:devicesGrid.width/devicesGrid.columns - 2*devicesGrid.columnSpacing
-            implicitHeight: parent.height/3
-            onClicked: {
-                addDeviceClicked()
+            DragHandler {
+                id: handler
+                target: devices
+            }
+
+            AddNewDevice {
+                id: plusIcon
+                width: devicesFlow.cardWidth
+                height: 160
+                onClicked: {
+                    addDeviceClicked()
+                }
             }
         }
     }
 }
-
-
-
