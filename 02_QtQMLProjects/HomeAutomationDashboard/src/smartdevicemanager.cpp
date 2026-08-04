@@ -72,10 +72,7 @@ void SmartDeviceManager::addRoom(const QString &roomName)
     m_roomsModel->updateRooms(m_rooms);
     emit roomsChanged();
 
-    // First room added? Make it active
-    if (m_rooms.size() == 1) {
-        setCurrentRoom(newRoom);
-    }
+    setCurrentRoom(newRoom);
 }
 
 void SmartDeviceManager::removeRoom(int index)

@@ -20,7 +20,10 @@ ApplicationWindow {
             left: parent.left
         }
         onCurrentIndexChanged: {
-            SmartDeviceManager.setCurrentRoomIndex(checkRoomTabBar.currentIndex)
+            // console.log("Current Index is ", checkRoomTabBar.currentIndex)
+            if(currentIndex >= 0){
+                SmartDeviceManager.setCurrentRoomIndex(checkRoomTabBar.currentIndex)
+            }
         }
     }
     RoomTabActions{
@@ -74,6 +77,7 @@ ApplicationWindow {
         // 3. On valid input, pass name directly to C++ backend
         onRoomAdded: function(roomName) {
             SmartDeviceManager.addRoom(roomName)
+            checkRoomTabBar.currentIndex = checkRoomTabBar.count -1
         }
     }
 
