@@ -1,0 +1,20 @@
+{
+    "themeName": "Warm Sand",
+    "colors": {
+        "background": "#f7f4f0",
+        "surface": "#ebe5de",
+        "cardBackground": "#ffffff",
+        "primary": "#d97706",
+        "primaryHover": "#b45309",
+        "textPrimary": "#292524",
+        "textSecondary": "#78716c",
+        "border": "#e7e0d8",
+        "accent": "#f97316"
+    },
+    "fonts": {
+        "family": "Roboto",
+        "sizeTitle": 20,
+        "sizeBody": 14,
+        "sizeCaption": 12
+    }
+}

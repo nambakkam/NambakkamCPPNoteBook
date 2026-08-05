@@ -1,0 +1,20 @@
+{
+    "themeName": "Bright Day",
+    "colors": {
+        "background": "#e6e9ee",
+        "surface": "#f2f3f5",
+        "cardBackground": "#ffffff",
+        "primary": "#5688b9",
+        "primaryHover": "#4875a3",
+        "textPrimary": "#1c1d20",
+        "textSecondary": "#818a97",
+        "border": "#d8dadf",
+        "accent": "#3b82f6"
+    },
+    "fonts": {
+        "family": "Roboto",
+        "sizeTitle": 20,
+        "sizeBody": 14,
+        "sizeCaption": 12
+    }
+}

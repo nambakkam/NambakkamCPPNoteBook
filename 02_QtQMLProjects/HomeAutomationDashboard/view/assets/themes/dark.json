@@ -1,0 +1,20 @@
+{
+    "themeName": "Midnight Slate",
+    "colors": {
+        "background": "#121316",
+        "surface": "#1c1d20",
+        "cardBackground": "#24262b",
+        "primary": "#5688b9",
+        "primaryHover": "#6a9ccf",
+        "textPrimary": "#f2f3f5",
+        "textSecondary": "#9ca3af",
+        "border": "#32353b",
+        "accent": "#60a5fa"
+    },
+    "fonts": {
+        "family": "Roboto",
+        "sizeTitle": 20,
+        "sizeBody": 14,
+        "sizeCaption": 12
+    }
+}

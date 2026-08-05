@@ -9,6 +9,7 @@
 #include "room.h"
 #include "roomsmodel.h"
 #include "devicelistmodel.h"
+#include "thememanager.h"
 
 class SmartDeviceManager : public QObject
 {
@@ -18,6 +19,7 @@ class SmartDeviceManager : public QObject
 
     Q_PROPERTY(RoomsModel* roomsModel READ roomsModel CONSTANT)
     Q_PROPERTY(DeviceListModel* deviceModel READ deviceModel CONSTANT)
+    Q_PROPERTY(ThemeManager* themeManager READ themeManager CONSTANT)
     Q_PROPERTY(int currentRoomIndex READ currentRoomIndex NOTIFY currentRoomIndexChanged)
     Q_PROPERTY(QVariantList deviceTypeModel READ deviceTypeModel CONSTANT)
 
@@ -26,6 +28,7 @@ public:
 
     RoomsModel* roomsModel() const;
     DeviceListModel* deviceModel() const;
+    ThemeManager* themeManager() const;
 
     // Dynamic index getter
     int currentRoomIndex() const;
@@ -52,6 +55,7 @@ private:
 
     RoomsModel* m_roomsModel;
     DeviceListModel* m_deviceModel;
+    ThemeManager* m_themeManager;
 };
 
 #endif // SMARTDEVICEMANAGER_H

@@ -6,11 +6,17 @@ SmartDeviceManager::SmartDeviceManager(QObject *parent)
     , m_roomsModel(new RoomsModel(this))
     , m_deviceModel(new DeviceListModel(this))
     , m_currentRoom(nullptr)
+    , m_themeManager(new ThemeManager(this))
 {
 }
 
 RoomsModel* SmartDeviceManager::roomsModel() const { return m_roomsModel; }
 DeviceListModel* SmartDeviceManager::deviceModel() const { return m_deviceModel; }
+
+ThemeManager *SmartDeviceManager::themeManager() const
+{
+    return m_themeManager;
+}
 
 // Dynamically compute index from m_currentRoom pointer
 int SmartDeviceManager::currentRoomIndex() const

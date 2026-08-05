@@ -24,15 +24,15 @@ qt_add_qml_module(appHomeAutomationDashboard
         view/DevicesGrid.qml
         view/RoomTabActions.qml
         view/AddRoomDialog.qml
-        view/DeviceCards/DeviceCard.qml
-        view/DeviceCards/AirConditionerControls.qml
-        view/DeviceCards/FridgeControls.qml
-        view/DeviceCards/LightControls.qml
-        view/DeviceCards/PlugControls.qml
-        view/DeviceCards/SecurityCameraControls.qml
-        view/DeviceCards/TelevisionControls.qml
-        view/DeviceCards/WashingMachineControls.qml
-        view/DeviceCards/AddNewDevice.qml
+        view/devicecards/DeviceCard.qml
+        view/devicecards/AirConditionerControls.qml
+        view/devicecards/FridgeControls.qml
+        view/devicecards/LightControls.qml
+        view/devicecards/PlugControls.qml
+        view/devicecards/SecurityCameraControls.qml
+        view/devicecards/TelevisionControls.qml
+        view/devicecards/WashingMachineControls.qml
+        view/devicecards/AddNewDevice.qml
         view/AddDeviceDialog.qml
     SOURCES
         src/devices/ismartdevice.h
@@ -62,10 +62,27 @@ qt_add_qml_module(appHomeAutomationDashboard
         src/models/devicelistmodel.cpp
         src/models/roomsmodel.h 
         src/models/roomsmodel.cpp
+        src/thememanager.h
+        src/thememanager.cpp
     RESOURCES
-        view/Assets/addDevice.svg
+        view/assets/addDevice.svg
+        view/assets/themes/light.json
+        view/assets/themes/dark.json
+        view/assets/themes/navy.json
+        view/assets/themes/eco.json
+        view/assets/themes/sand.json
 )
 
+qt_add_resources(
+    appHomeAutomationDashboard "appThemes"
+    FILES
+    view/assets/addDevice.svg
+    view/assets/themes/light.json
+    view/assets/themes/dark.json
+    view/assets/themes/navy.json
+    view/assets/themes/eco.json
+    view/assets/themes/sand.json
+)
 
 # 4. Include Directories for clean #include paths in C++
 target_include_directories(appHomeAutomationDashboard PRIVATE

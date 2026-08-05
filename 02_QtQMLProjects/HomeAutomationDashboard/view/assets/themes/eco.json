@@ -1,0 +1,20 @@
+{
+    "themeName": "Eco Emerald",
+    "colors": {
+        "background": "#f4f6f4",
+        "surface": "#e8ede8",
+        "cardBackground": "#ffffff",
+        "primary": "#2e7d32",
+        "primaryHover": "#1b5e20",
+        "textPrimary": "#1b281b",
+        "textSecondary": "#637363",
+        "border": "#d0dad0",
+        "accent": "#10b981"
+    },
+    "fonts": {
+        "family": "Roboto",
+        "sizeTitle": 20,
+        "sizeBody": 14,
+        "sizeCaption": 12
+    }
+}

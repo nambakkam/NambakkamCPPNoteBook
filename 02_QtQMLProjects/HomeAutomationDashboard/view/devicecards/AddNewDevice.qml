@@ -10,7 +10,7 @@ Button {
     implicitHeight: 180
 
     // Path to your plus icon asset
-    property url iconSource: "../Assets/addDevice.svg"
+    property url iconSource: "../assets/addDevice.svg"
 
     contentItem: ColumnLayout {
         spacing: 10

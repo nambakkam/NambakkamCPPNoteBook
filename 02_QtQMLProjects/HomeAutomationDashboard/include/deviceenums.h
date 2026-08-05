@@ -58,6 +58,15 @@ namespace DeviceEnums {
         AV
     };
     Q_ENUM_NS(InputSource)
+
+    enum Themes{
+        DARK,
+        ECO,
+        BRIGHT,
+        NAVY,
+        SAND
+    };
+    Q_ENUM_NS(Themes)
 }
 
 #endif // DEVICEENUMS_H
