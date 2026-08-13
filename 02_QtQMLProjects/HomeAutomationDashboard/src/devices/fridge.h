@@ -32,6 +32,8 @@ public:
     bool rapidCool() const;
     bool superFreeze() const;
     bool isDoorOpen() const;
+    void updateState(const QJsonObject &state) override;
+    QJsonObject currentState() const override;
 
     // Boundary getters
     static constexpr int lowestFridgeTemp{1};

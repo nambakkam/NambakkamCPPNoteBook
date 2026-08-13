@@ -113,3 +113,42 @@ void SecurityCamera::zoomOut()
 {
     // Hardware integration hook for zoom
 }
+
+void SecurityCamera::updateState(const QJsonObject &state)
+{
+    if (state.contains("powerState")) {
+        setPowerState(state["powerState"].toBool());
+    }
+    if (state.contains("isStreaming")) {
+        m_isStreaming = state["isStreaming"].toBool();
+        emit isStreamingChanged(m_isStreaming);
+    }
+    if (state.contains("isRecording")) {
+        m_isRecording = state["isRecording"].toBool();
+        emit isRecordingChanged(m_isRecording);
+    }
+    if (state.contains("nightVisionEnabled")) {
+        setNightVisionEnabled(state["nightVisionEnabled"].toBool());
+    }
+    if (state.contains("motionDetectionEnabled")) {
+        setMotionDetectionEnabled(state["motionDetectionEnabled"].toBool());
+    }
+    if (state.contains("motionSensitivity")) {
+        setMotionSensitivity(state["motionSensitivity"].toInt());
+    }
+}
+
+QJsonObject SecurityCamera::currentState() const
+{
+    QJsonObject state;
+    state["deviceId"] = getDeviceId();
+    state["deviceName"] = getDeviceName();
+    state["deviceType"] = static_cast<int>(getDeviceType());
+    state["powerState"] = getPowerState();
+    state["isStreaming"] = isStreaming();
+    state["isRecording"] = isRecording();
+    state["nightVisionEnabled"] = nightVisionEnabled();
+    state["motionDetectionEnabled"] = motionDetectionEnabled();
+    state["motionSensitivity"] = motionSensitivity();
+    return state;
+}

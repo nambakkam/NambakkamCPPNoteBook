@@ -112,3 +112,45 @@ void WashingMachine::updateTimeRemaining(int minutes)
         emit timeRemainingMinutesChanged(m_timeRemainingMinutes);
     }
 }
+
+void WashingMachine::updateState(const QJsonObject &state)
+{
+    if (state.contains("powerState")) {
+        setPowerState(state["powerState"].toBool());
+    }
+    if (state.contains("spinSpeed")) {
+        setSpinSpeed(state["spinSpeed"].toInt());
+    }
+    if (state.contains("waterTemperature")) {
+        setWaterTemperature(state["waterTemperature"].toInt());
+    }
+    if (state.contains("washCycle")) {
+        setWashCycle(static_cast<DeviceEnums::WashCycle>(state["washCycle"].toInt()));
+    }
+    if (state.contains("isRunning")) {
+        m_isRunning = state["isRunning"].toBool();
+        emit isRunningChanged(m_isRunning);
+    }
+    if (state.contains("childLock")) {
+        setChildLock(state["childLock"].toBool());
+    }
+    if (state.contains("timeRemainingMinutes")) {
+        updateTimeRemaining(state["timeRemainingMinutes"].toInt());
+    }
+}
+
+QJsonObject WashingMachine::currentState() const
+{
+    QJsonObject state;
+    state["deviceId"] = getDeviceId();
+    state["deviceName"] = getDeviceName();
+    state["deviceType"] = static_cast<int>(getDeviceType());
+    state["powerState"] = getPowerState();
+    state["spinSpeed"] = m_spinSpeed;
+    state["waterTemperature"] = m_waterTemperature;
+    state["washCycle"] = static_cast<int>(m_washCycle);
+    state["isRunning"] = m_isRunning;
+    state["childLock"] = m_childLock;
+    state["timeRemainingMinutes"] = m_timeRemainingMinutes;
+    return state;
+}

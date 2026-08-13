@@ -30,6 +30,9 @@ public:
     bool motionDetectionEnabled() const;
     int motionSensitivity() const;
 
+    void updateState(const QJsonObject &state) override;
+    QJsonObject currentState() const override;
+
     // Boundary getters
     static constexpr int minSensitivity{1};
     static constexpr int maxSensitivity{100};

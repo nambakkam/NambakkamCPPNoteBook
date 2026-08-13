@@ -5,12 +5,12 @@
 #include <QtQml/qqmlregistration.h>
 #include <QPointer>
 #include <QVector>
-
 #include "room.h"
 #include "roomsmodel.h"
 #include "devicelistmodel.h"
 #include "thememanager.h"
-
+#include "mqttservice.h"
+#include "devicesyncmanager.h"
 class SmartDeviceManager : public QObject
 {
     Q_OBJECT
@@ -39,6 +39,7 @@ public:
     Q_INVOKABLE void removeDeviceFromCurrentRoom(int index);
     Q_INVOKABLE void setCurrentRoomIndex(int index);
     QVariantList deviceTypeModel() const;
+    const QVector<QPointer<Room>>& rooms() const;
 
 signals:
     void roomsChanged();
@@ -49,6 +50,7 @@ private slots:
 
 private:
     void setCurrentRoom(QPointer<Room> room);
+    void setupServices();
 
     QVector<QPointer<Room>> m_rooms;
     QPointer<Room> m_currentRoom; // <-- ONLY state variable you need!
@@ -56,6 +58,9 @@ private:
     RoomsModel* m_roomsModel;
     DeviceListModel* m_deviceModel;
     ThemeManager* m_themeManager;
+    MqttService *m_mqttService;
+    DeviceSyncManager *m_syncManager;
+
 };
 
 #endif // SMARTDEVICEMANAGER_H

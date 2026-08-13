@@ -46,3 +46,26 @@ int AirConditioner::getHighestTempSetting() const
 {
     return highestTempSetting;
 }
+
+void AirConditioner::updateState(const QJsonObject &state)
+{
+    qDebug() << "Published State " << state;
+    if (state.contains("powerState")) {
+        setPowerState(state["powerState"].toBool());
+    }
+    if (state.contains("targetTemperature")) {
+        setTargetTemperature(state["targetTemperature"].toInt());
+    }
+    if (state.contains("fanSpeed")) {
+        setFanSpeed(static_cast<DeviceEnums::FanSpeed>(state["fanSpeed"].toInt()));
+    }
+}
+
+QJsonObject AirConditioner::currentState() const
+{
+    QJsonObject state;
+    state["powerState"] = getPowerState();
+    state["targetTemperature"] = m_targetTemperature;
+    state["fanSpeed"] = static_cast<int>(m_fanSpeed);
+    return state;
+}

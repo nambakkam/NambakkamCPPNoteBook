@@ -8,6 +8,7 @@ SmartDeviceManager::SmartDeviceManager(QObject *parent)
     , m_currentRoom(nullptr)
     , m_themeManager(new ThemeManager(this))
 {
+    setupServices();
 }
 
 RoomsModel* SmartDeviceManager::roomsModel() const { return m_roomsModel; }
@@ -45,6 +46,19 @@ void SmartDeviceManager::setCurrentRoom(QPointer<Room> room)
     emit currentRoomIndexChanged(currentRoomIndex());
 }
 
+void SmartDeviceManager::setupServices()
+{
+    // Instantiate network driver
+    m_mqttService = new MqttService(this);
+
+    // Instantiate mediator (passes 'this' and m_mqttService)
+    m_syncManager = new DeviceSyncManager(this, m_mqttService, this);
+
+    // Connect to local broker
+    m_mqttService->connectToBroker("127.0.0.1", 1883);
+
+}
+
 void SmartDeviceManager::setCurrentRoomIndex(int index)
 {
     if (index < 0 || index >= m_rooms.size()) {
@@ -68,6 +82,11 @@ QVariantList SmartDeviceManager::deviceTypeModel() const
         QVariantMap{{"name", "Smart Plug"},      {"type", DeviceEnums::SmartPlug},      {"prefix", "Smart Plug"}},
         QVariantMap{{"name", "Security Camera"}, {"type", DeviceEnums::SecurityCamera}, {"prefix", "Camera"}}
     };
+}
+
+const QVector<QPointer<Room>> &SmartDeviceManager::rooms() const
+{
+    return m_rooms;
 }
 
 void SmartDeviceManager::addRoom(const QString &roomName)

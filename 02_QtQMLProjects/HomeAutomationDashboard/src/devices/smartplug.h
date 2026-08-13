@@ -26,6 +26,8 @@ public:
     int countdownSeconds() const;
     double overloadThresholdWatts() const;
     bool isOverloaded() const;
+    void updateState(const QJsonObject &state) override;
+    QJsonObject currentState() const override;
 
 public slots:
     void setCountdownSeconds(int seconds);

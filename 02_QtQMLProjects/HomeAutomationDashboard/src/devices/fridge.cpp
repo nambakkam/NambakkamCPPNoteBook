@@ -76,3 +76,38 @@ void Fridge::setDoorOpen(bool open)
         emit doorStateChanged(m_isDoorOpen);
     }
 }
+
+void Fridge::updateState(const QJsonObject &state)
+{
+    if (state.contains("powerState")) {
+        setPowerState(state["powerState"].toBool());
+    }
+    if (state.contains("fridgeTemperature")) {
+        setFridgeTemperature(state["fridgeTemperature"].toInt());
+    }
+    if (state.contains("freezerTemperature")) {
+        setFreezerTemperature(state["freezerTemperature"].toInt());
+    }
+    if (state.contains("rapidCool")) {
+        setRapidCool(state["rapidCool"].toBool());
+    }
+    if (state.contains("superFreeze")) {
+        setSuperFreeze(state["superFreeze"].toBool());
+    }
+    if (state.contains("isDoorOpen")) {
+        setDoorOpen(state["isDoorOpen"].toBool());
+    }
+}
+
+QJsonObject Fridge::currentState() const
+{
+    QJsonObject state;
+    state["powerState"] = getPowerState();
+    state["fridgeTemperature"] = m_fridgeTemperature;
+    state["freezerTemperature"] = m_freezerTemperature;
+    state["rapidCool"] = m_rapidCool;
+    state["superFreeze"] = m_superFreeze;
+    state["isDoorOpen"] = m_isDoorOpen;
+
+    return state;
+}

@@ -34,6 +34,9 @@ public:
     bool childLock() const;
     int timeRemainingMinutes() const;
 
+    void updateState(const QJsonObject &state) override;
+    QJsonObject currentState() const override;  
+
     // Boundary getters
     static constexpr int minSpinSpeed{0};
     static constexpr int maxSpinSpeed{1400};

@@ -25,6 +25,8 @@ public:
     int getLowestTempSetting() const;
     int getHighestTempSetting() const;
 
+    void updateState(const QJsonObject &state) override;
+    QJsonObject currentState() const override;
 public slots:
     void setTargetTemperature(int temp);
     void setFanSpeed(DeviceEnums::FanSpeed speed);

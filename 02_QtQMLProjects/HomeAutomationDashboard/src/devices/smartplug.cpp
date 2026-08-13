@@ -90,3 +90,37 @@ void SmartPlug::setOverloaded(bool overloaded)
         emit overloadedStateChanged(m_isOverloaded);
     }
 }
+
+void SmartPlug::updateState(const QJsonObject &state)
+{
+    if (state.contains("powerState")) {
+        setPowerState(state["powerState"].toBool());
+    }
+    if (state.contains("currentPowerWatts")) {
+        updatePowerUsage(state["currentPowerWatts"].toDouble());
+    }
+    if (state.contains("totalEnergyKWh")) {
+        m_totalEnergyKWh = state["totalEnergyKWh"].toDouble();
+        emit totalEnergyKWhChanged(m_totalEnergyKWh);
+    }
+    if (state.contains("countdownSeconds")) {
+        setCountdownSeconds(state["countdownSeconds"].toInt());
+    }
+    if (state.contains("overloadThresholdWatts")) {
+        setOverloadThresholdWatts(state["overloadThresholdWatts"].toDouble());
+    }
+}
+
+QJsonObject SmartPlug::currentState() const
+{
+    QJsonObject state;
+    state["deviceId"] = getDeviceId();
+    state["deviceName"] = getDeviceName();
+    state["deviceType"] = static_cast<int>(getDeviceType());
+    state["powerState"] = getPowerState();
+    state["currentPowerWatts"] = m_currentPowerWatts;
+    state["totalEnergyKWh"] = m_totalEnergyKWh;
+    state["countdownSeconds"] = m_countdownSeconds;
+    state["overloadThresholdWatts"] = m_overloadThresholdWatts;
+    return state;
+}

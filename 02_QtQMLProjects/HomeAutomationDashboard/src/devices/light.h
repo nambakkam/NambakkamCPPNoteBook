@@ -11,6 +11,8 @@ public:
     explicit Light(const QString &deviceId,const QString& deviceNameVal = "Unnamed Light",QObject *parent = nullptr);
     ~Light() override = default;
     int brightness() const;
+    void updateState(const QJsonObject &state) override;
+    QJsonObject currentState() const override;
 public slots:
     void setBrightness(int level);
 private:

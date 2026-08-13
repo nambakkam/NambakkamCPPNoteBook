@@ -27,6 +27,9 @@ public:
     int channelNumber() const;
     DeviceEnums::InputSource inputSource() const;
 
+    void updateState(const QJsonObject &state) override;
+    QJsonObject currentState() const override;
+
     // Boundary getters
     static constexpr int minVolume{0};
     static constexpr int maxVolume{100};

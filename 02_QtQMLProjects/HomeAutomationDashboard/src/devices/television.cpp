@@ -90,3 +90,36 @@ void Television::channelDown()
         setChannelNumber(m_channelNumber - 1);
     }
 }
+
+void Television::updateState(const QJsonObject &state)
+{
+    if (state.contains("powerState")) {
+        setPowerState(state["powerState"].toBool());
+    }
+    if (state.contains("volume")) {
+        setVolume(state["volume"].toInt());
+    }
+    if (state.contains("isMuted")) {
+        setMuted(state["isMuted"].toBool());
+    }
+    if (state.contains("channelNumber")) {
+        setChannelNumber(state["channelNumber"].toInt());
+    }
+    if (state.contains("inputSource")) {
+        setInputSource(static_cast<DeviceEnums::InputSource>(state["inputSource"].toInt()));
+    }
+}
+
+QJsonObject Television::currentState() const
+{
+    QJsonObject state;
+    state["deviceId"] = getDeviceId();
+    state["deviceName"] = getDeviceName();
+    state["deviceType"] = static_cast<int>(getDeviceType());
+    state["powerState"] = getPowerState();
+    state["volume"] = m_volume;
+    state["isMuted"] = m_isMuted;
+    state["channelNumber"] = m_channelNumber;
+    state["inputSource"] = static_cast<int>(m_inputSource);
+    return state;
+}

@@ -6,7 +6,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 1. Find Qt Dependencies
-find_package(Qt6 REQUIRED COMPONENTS Quick)
+find_package(Qt6 REQUIRED COMPONENTS
+    Quick
+    Mqtt
+)
 qt_standard_project_setup(REQUIRES 6.8)
 
 # 2. Define the Target with its main entry point
@@ -66,6 +69,10 @@ qt_add_qml_module(appHomeAutomationDashboard
         src/thememanager.cpp
         src/utils/deviceidgenerator.h
         src/utils/deviceidgenerator.cpp
+        src/services/mqttservice.h
+        src/services/mqttservice.cpp
+        src/services/devicesyncmanager.h
+        src/services/devicesyncmanager.cpp
     RESOURCES
         view/assets/addDevice.svg
         view/assets/themes/light.json
@@ -93,11 +100,15 @@ target_include_directories(appHomeAutomationDashboard PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/devices
     ${CMAKE_CURRENT_SOURCE_DIR}/src/models
     ${CMAKE_CURRENT_SOURCE_DIR}/src/utils
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/services
 )
 
 # 5. Link Libraries
 target_link_libraries(appHomeAutomationDashboard
-    PRIVATE Qt6::Quick
+    PRIVATE
+    Qt6::Core
+    Qt6::Quick
+    Qt6::Mqtt
 )
 
 # 6. Global App Target Properties (Window/OS specific)
