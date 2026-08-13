@@ -1,7 +1,7 @@
 #include "washingmachine.h"
 
 WashingMachine::WashingMachine(const QString &name, QObject *parent)
-    : ISmartDevice(name, DeviceEnums::WashingMachine, DeviceEnums::Off, parent)
+    : ISmartDevice(name, DeviceEnums::WashingMachine, false, parent)
     , m_spinSpeed(1000)
     , m_waterTemperature(40)
     , m_washCycle(DeviceEnums::Cotton)
@@ -83,7 +83,7 @@ int WashingMachine::timeRemainingMinutes() const
 
 void WashingMachine::startCycle()
 {
-    if (getDeviceState() == DeviceEnums::Off || m_isRunning) return;
+    if (!getPowerState() || m_isRunning) return;
 
     m_isRunning = true;
     emit isRunningChanged(m_isRunning);
@@ -103,19 +103,6 @@ void WashingMachine::stopCycle()
     m_isRunning = false;
     emit isRunningChanged(m_isRunning);
     updateTimeRemaining(0);
-}
-
-void WashingMachine::togglePower()
-{
-    auto newState = (getDeviceState() == DeviceEnums::On) 
-                    ? DeviceEnums::Off 
-                    : DeviceEnums::On;
-
-    if (newState == DeviceEnums::Off && m_isRunning) {
-        stopCycle();
-    }
-
-    setDeviceState(newState);
 }
 
 void WashingMachine::updateTimeRemaining(int minutes)

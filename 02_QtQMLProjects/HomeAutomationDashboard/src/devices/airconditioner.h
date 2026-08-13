@@ -26,7 +26,6 @@ public:
     int getHighestTempSetting() const;
 
 public slots:
-    void togglePower() override;
     void setTargetTemperature(int temp);
     void setFanSpeed(DeviceEnums::FanSpeed speed);
 

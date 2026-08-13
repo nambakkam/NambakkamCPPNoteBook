@@ -51,8 +51,6 @@ public slots:
     void setSuperFreeze(bool enabled);
     void setDoorOpen(bool open); // Called by internal/hardware sensors
 
-    void togglePower() override;
-
 signals:
     void fridgeTemperatureChanged(int temp);
     void freezerTemperatureChanged(int temp);

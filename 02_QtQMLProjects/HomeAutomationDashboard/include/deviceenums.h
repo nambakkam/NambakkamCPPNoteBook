@@ -20,14 +20,6 @@ namespace DeviceEnums {
     };
     Q_ENUM_NS(Type)
 
-    enum DeviceStates {
-        Off,
-        On,
-        Error,
-        Undefined
-    };
-    Q_ENUM_NS(DeviceStates)
-
     enum FanSpeed {
         Low,
         Medium,

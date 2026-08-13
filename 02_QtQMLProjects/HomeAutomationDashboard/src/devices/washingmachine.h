@@ -56,8 +56,6 @@ public slots:
     void pauseCycle();
     void stopCycle();
 
-    void togglePower() override;
-
 signals:
     void spinSpeedChanged(int rpm);
     void waterTemperatureChanged(int temp);

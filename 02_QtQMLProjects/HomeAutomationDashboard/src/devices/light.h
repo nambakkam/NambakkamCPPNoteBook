@@ -12,7 +12,6 @@ public:
     ~Light() override = default;
     int brightness() const;
 public slots:
-    void togglePower() override;
     void setBrightness(int level);
 private:
     int m_brightnessLevel;

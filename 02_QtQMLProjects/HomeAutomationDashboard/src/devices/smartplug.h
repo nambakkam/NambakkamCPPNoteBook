@@ -35,8 +35,6 @@ public slots:
     void updatePowerUsage(double watts, double additionalKWh = 0.0);
     void resetTotalEnergy();
 
-    void togglePower() override;
-
 signals:
     void currentPowerWattsChanged(double watts);
     void totalEnergyKWhChanged(double kWh);

@@ -1,7 +1,7 @@
 #include "smartplug.h"
 
 SmartPlug::SmartPlug(const QString &name, QObject *parent)
-    : ISmartDevice(name, DeviceEnums::SmartPlug, DeviceEnums::Off, parent)
+    : ISmartDevice(name, DeviceEnums::SmartPlug, false, parent)
     , m_currentPowerWatts(0.0)
     , m_totalEnergyKWh(0.0)
     , m_countdownSeconds(0)
@@ -54,7 +54,7 @@ bool SmartPlug::isOverloaded() const
 
 void SmartPlug::updatePowerUsage(double watts, double additionalKWh)
 {
-    if (getDeviceState() == DeviceEnums::Off) {
+    if (!getPowerState()) {
         watts = 0.0;
     }
 
@@ -71,7 +71,7 @@ void SmartPlug::updatePowerUsage(double watts, double additionalKWh)
     // Safety check for overload
     if (m_currentPowerWatts > m_overloadThresholdWatts) {
         setOverloaded(true);
-        setDeviceState(DeviceEnums::Error);
+        setPowerState(false);
     }
 }
 
@@ -89,27 +89,4 @@ void SmartPlug::setOverloaded(bool overloaded)
         m_isOverloaded = overloaded;
         emit overloadedStateChanged(m_isOverloaded);
     }
-}
-
-void SmartPlug::togglePower()
-{
-    // If overloaded/error state, clear overload when turning off
-    if (m_isOverloaded) {
-        setOverloaded(false);
-        setDeviceState(DeviceEnums::Off);
-        m_currentPowerWatts = 0.0;
-        emit currentPowerWattsChanged(m_currentPowerWatts);
-        return;
-    }
-
-    auto newState = (getDeviceState() == DeviceEnums::On) 
-                    ? DeviceEnums::Off 
-                    : DeviceEnums::On;
-
-    if (newState == DeviceEnums::Off) {
-        m_currentPowerWatts = 0.0;
-        emit currentPowerWattsChanged(m_currentPowerWatts);
-    }
-
-    setDeviceState(newState);
 }

@@ -10,21 +10,20 @@ class ISmartDevice : public QObject
 
     Q_PROPERTY(QString deviceName READ getDeviceName CONSTANT)
     Q_PROPERTY(DeviceEnums::Type deviceType READ getDeviceType CONSTANT)
-    Q_PROPERTY(DeviceEnums::DeviceStates deviceState READ getDeviceState NOTIFY deviceStateChanged)
+    Q_PROPERTY(bool powerState READ getPowerState WRITE setPowerState NOTIFY powerStateChanged)
 public:
     virtual ~ISmartDevice() = default;
-    explicit ISmartDevice(const QString& deviceNameVal = "",DeviceEnums::Type deviceTypeVal = DeviceEnums::Unknown,DeviceEnums::DeviceStates stateVal = DeviceEnums::Off,QObject *parent = nullptr);
+    explicit ISmartDevice(const QString& deviceNameVal = "",DeviceEnums::Type deviceTypeVal = DeviceEnums::Unknown,bool stateVal = false,QObject *parent = nullptr);
     QString getDeviceName() const;
     DeviceEnums::Type getDeviceType() const;
-    DeviceEnums::DeviceStates getDeviceState() const;
-public slots:
-    virtual void togglePower() = 0;
+    bool getPowerState() const;
+    void setPowerState(bool state);
 
 signals:
-    void deviceStateChanged(DeviceEnums::DeviceStates state);
+    void powerStateChanged(bool state);
 protected:
-    DeviceEnums::DeviceStates m_deviceState;
-    void setDeviceState(const DeviceEnums::DeviceStates& state);
+    bool m_powerState;
+
 
 private:
     QString m_deviceName;

@@ -55,8 +55,6 @@ public slots:
     void zoomIn();
     void zoomOut();
 
-    void togglePower() override;
-
 signals:
     void isStreamingChanged(bool streaming);
     void isRecordingChanged(bool recording);

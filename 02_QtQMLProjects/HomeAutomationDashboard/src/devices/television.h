@@ -46,8 +46,6 @@ public slots:
     void channelUp();
     void channelDown();
 
-    void togglePower() override;
-
 signals:
     void volumeChanged(int volume);
     void mutedChanged(bool muted);

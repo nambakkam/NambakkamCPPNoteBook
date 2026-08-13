@@ -1,7 +1,7 @@
 #include "airconditioner.h"
 
 AirConditioner::AirConditioner(const QString &name, QObject *parent)
-    : ISmartDevice(name, DeviceEnums::AirConditioner, DeviceEnums::Off, parent)
+    : ISmartDevice(name, DeviceEnums::AirConditioner, false, parent)
     , m_targetTemperature(24) // Default pleasant startup temp
     , m_fanSpeed(DeviceEnums::Auto)
 {
@@ -46,9 +46,3 @@ int AirConditioner::getHighestTempSetting() const
 {
     return highestTempSetting;
 }
-
-void AirConditioner::togglePower()
-{
-    ISmartDevice::togglePower();
-}
-

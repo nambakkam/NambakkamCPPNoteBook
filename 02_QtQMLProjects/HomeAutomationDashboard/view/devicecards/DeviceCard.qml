@@ -37,7 +37,7 @@ Rectangle {
 
             Switch {
                 id: powerSwitch
-                checked: root.deviceObj.deviceState === DeviceEnums.On
+                checked: root.deviceObj.powerState === true
                 implicitWidth: 38
                 implicitHeight: 22
 
@@ -63,7 +63,7 @@ Rectangle {
                 }
 
                 onCheckedChanged: {
-                    model.deviceObject.togglePower()
+                    model.deviceObject.setPowerState(powerSwitch.checked)
                 }
             }
         }

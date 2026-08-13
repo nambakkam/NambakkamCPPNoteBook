@@ -1,7 +1,7 @@
 #include "fridge.h"
 
 Fridge::Fridge(const QString &name, QObject *parent)
-    : ISmartDevice(name, DeviceEnums::Fridge, DeviceEnums::On, parent) // Fridges default to On
+    : ISmartDevice(name, DeviceEnums::Fridge, false, parent)
     , m_fridgeTemperature(3)    // Default pleasant fridge temp (3°C)
     , m_freezerTemperature(-18) // Standard freezer temp (-18°C)
     , m_rapidCool(false)
@@ -75,12 +75,4 @@ void Fridge::setDoorOpen(bool open)
         m_isDoorOpen = open;
         emit doorStateChanged(m_isDoorOpen);
     }
-}
-
-void Fridge::togglePower()
-{
-    auto newState = (getDeviceState() == DeviceEnums::On) 
-                    ? DeviceEnums::Off 
-                    : DeviceEnums::On;
-    setDeviceState(newState);
 }

@@ -1,7 +1,7 @@
 #include "television.h"
 
 Television::Television(const QString &name, QObject *parent)
-    : ISmartDevice(name, DeviceEnums::Television, DeviceEnums::Off, parent)
+    : ISmartDevice(name, DeviceEnums::Television, false, parent)
     , m_volume(20)
     , m_isMuted(false)
     , m_channelNumber(1)
@@ -89,12 +89,4 @@ void Television::channelDown()
     if (m_channelNumber > 1) {
         setChannelNumber(m_channelNumber - 1);
     }
-}
-
-void Television::togglePower()
-{
-    auto newState = (getDeviceState() == DeviceEnums::On) 
-                    ? DeviceEnums::Off 
-                    : DeviceEnums::On;
-    setDeviceState(newState);
 }
