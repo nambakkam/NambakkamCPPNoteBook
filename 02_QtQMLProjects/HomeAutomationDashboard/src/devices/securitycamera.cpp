@@ -1,7 +1,7 @@
 #include "securitycamera.h"
 
-SecurityCamera::SecurityCamera(const QString &name, QObject *parent)
-    : ISmartDevice(name, DeviceEnums::SecurityCamera, false, parent)
+SecurityCamera::SecurityCamera(const QString &deviceId, const QString &name, QObject *parent)
+    : ISmartDevice(deviceId, name, DeviceEnums::SecurityCamera, false, parent)
     , m_isStreaming(false)
     , m_isRecording(false)
     , m_nightVisionEnabled(true)

@@ -2,6 +2,7 @@
 #define SMARTDEVICEFACTORY_H
 #include "deviceenums.h"
 #include "ismartdevice.h"
+
 class SmartDeviceFactory
 {
 public:

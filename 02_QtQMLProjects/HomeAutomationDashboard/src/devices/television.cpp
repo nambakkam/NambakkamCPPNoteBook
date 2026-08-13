@@ -1,7 +1,7 @@
 #include "television.h"
 
-Television::Television(const QString &name, QObject *parent)
-    : ISmartDevice(name, DeviceEnums::Television, false, parent)
+Television::Television(const QString &deviceId, const QString &name, QObject *parent)
+    : ISmartDevice(deviceId, name, DeviceEnums::Television, false, parent)
     , m_volume(20)
     , m_isMuted(false)
     , m_channelNumber(1)

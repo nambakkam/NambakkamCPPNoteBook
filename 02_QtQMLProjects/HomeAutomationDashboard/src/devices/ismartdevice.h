@@ -9,15 +9,17 @@ class ISmartDevice : public QObject
     Q_DISABLE_COPY(ISmartDevice)
 
     Q_PROPERTY(QString deviceName READ getDeviceName CONSTANT)
+    Q_PROPERTY(QString deviceId READ getDeviceId CONSTANT)
     Q_PROPERTY(DeviceEnums::Type deviceType READ getDeviceType CONSTANT)
     Q_PROPERTY(bool powerState READ getPowerState WRITE setPowerState NOTIFY powerStateChanged)
 public:
     virtual ~ISmartDevice() = default;
-    explicit ISmartDevice(const QString& deviceNameVal = "",DeviceEnums::Type deviceTypeVal = DeviceEnums::Unknown,bool stateVal = false,QObject *parent = nullptr);
+    explicit ISmartDevice(const QString& deviceId = "Unknown",const QString& deviceNameVal = "",DeviceEnums::Type deviceTypeVal = DeviceEnums::Unknown,bool stateVal = false,QObject *parent = nullptr);
     QString getDeviceName() const;
     DeviceEnums::Type getDeviceType() const;
     bool getPowerState() const;
     void setPowerState(bool state);
+    QString getDeviceId() const;
 
 signals:
     void powerStateChanged(bool state);
@@ -26,8 +28,10 @@ protected:
 
 
 private:
+    QString m_deviceId;
     QString m_deviceName;
     DeviceEnums::Type m_deviceType;
+
 
 };
 

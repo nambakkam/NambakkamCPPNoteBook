@@ -20,7 +20,7 @@ class Television : public ISmartDevice
     Q_PROPERTY(int maxVolume READ getMaxVolume CONSTANT)
 
 public:
-    explicit Television(const QString &name, QObject *parent = nullptr);
+    explicit Television(const QString &deviceId, const QString &name, QObject *parent = nullptr);
 
     int volume() const;
     bool isMuted() const;

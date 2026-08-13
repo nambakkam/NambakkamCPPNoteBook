@@ -1,7 +1,7 @@
 #include "washingmachine.h"
 
-WashingMachine::WashingMachine(const QString &name, QObject *parent)
-    : ISmartDevice(name, DeviceEnums::WashingMachine, false, parent)
+WashingMachine::WashingMachine(const QString &deviceId, const QString &name, QObject *parent)
+    : ISmartDevice(deviceId, name, DeviceEnums::WashingMachine, false, parent)
     , m_spinSpeed(1000)
     , m_waterTemperature(40)
     , m_washCycle(DeviceEnums::Cotton)

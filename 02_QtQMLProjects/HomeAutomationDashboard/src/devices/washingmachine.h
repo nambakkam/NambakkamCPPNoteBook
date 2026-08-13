@@ -24,7 +24,7 @@ class WashingMachine : public ISmartDevice
     Q_PROPERTY(int maxWaterTemp READ getMaxWaterTemp CONSTANT)
 
 public:
-    explicit WashingMachine(const QString &name, QObject *parent = nullptr);
+    explicit WashingMachine(const QString &deviceId, const QString &name, QObject *parent = nullptr);
 
     int spinSpeed() const;
     int waterTemperature() const;

@@ -3,7 +3,7 @@
 #include <cstdlib> // For std::rand() and std::srand()
 #include <ctime>   // For std::time()
 
-Light::Light(QString deviceNameVal,QObject *parent) : ISmartDevice(deviceNameVal,DeviceEnums::Light,false,parent),m_brightnessLevel(50)
+Light::Light(const QString &deviceId,const QString &deviceNameVal,QObject *parent) : ISmartDevice(deviceId,deviceNameVal,DeviceEnums::Light,false,parent),m_brightnessLevel(50)
 {
 
 }

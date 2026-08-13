@@ -1,7 +1,7 @@
 #include "airconditioner.h"
 
-AirConditioner::AirConditioner(const QString &name, QObject *parent)
-    : ISmartDevice(name, DeviceEnums::AirConditioner, false, parent)
+AirConditioner::AirConditioner(const QString &deviceId,const QString &name, QObject *parent)
+    : ISmartDevice(deviceId,name, DeviceEnums::AirConditioner, false, parent)
     , m_targetTemperature(24) // Default pleasant startup temp
     , m_fanSpeed(DeviceEnums::Auto)
 {

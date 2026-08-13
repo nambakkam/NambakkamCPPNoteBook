@@ -19,7 +19,7 @@ class SmartPlug : public ISmartDevice
     Q_PROPERTY(bool isOverloaded READ isOverloaded NOTIFY overloadedStateChanged)
 
 public:
-    explicit SmartPlug(const QString &name, QObject *parent = nullptr);
+    explicit SmartPlug(const QString &deviceId, const QString &name, QObject *parent = nullptr);
 
     double currentPowerWatts() const;
     double totalEnergyKWh() const;

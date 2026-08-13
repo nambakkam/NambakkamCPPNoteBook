@@ -23,8 +23,7 @@ class SecurityCamera : public ISmartDevice
     Q_PROPERTY(int maxSensitivity READ getMaxSensitivity CONSTANT)
 
 public:
-    explicit SecurityCamera(const QString &name, QObject *parent = nullptr);
-
+    explicit SecurityCamera(const QString &deviceId, const QString &name, QObject *parent = nullptr);
     bool isStreaming() const;
     bool isRecording() const;
     bool nightVisionEnabled() const;

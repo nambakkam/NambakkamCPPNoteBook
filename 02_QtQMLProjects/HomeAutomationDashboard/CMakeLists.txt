@@ -64,6 +64,8 @@ qt_add_qml_module(appHomeAutomationDashboard
         src/models/roomsmodel.cpp
         src/thememanager.h
         src/thememanager.cpp
+        src/utils/deviceidgenerator.h
+        src/utils/deviceidgenerator.cpp
     RESOURCES
         view/assets/addDevice.svg
         view/assets/themes/light.json
@@ -90,6 +92,7 @@ target_include_directories(appHomeAutomationDashboard PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}/src/devices
     ${CMAKE_CURRENT_SOURCE_DIR}/src/models
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils
 )
 
 # 5. Link Libraries

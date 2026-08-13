@@ -1,7 +1,7 @@
 #include "fridge.h"
 
-Fridge::Fridge(const QString &name, QObject *parent)
-    : ISmartDevice(name, DeviceEnums::Fridge, false, parent)
+Fridge::Fridge(const QString &deviceId, const QString &name, QObject *parent)
+    : ISmartDevice(deviceId,name, DeviceEnums::Fridge, false, parent)
     , m_fridgeTemperature(3)    // Default pleasant fridge temp (3°C)
     , m_freezerTemperature(-18) // Standard freezer temp (-18°C)
     , m_rapidCool(false)

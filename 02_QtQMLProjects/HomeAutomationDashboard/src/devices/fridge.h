@@ -25,7 +25,7 @@ class Fridge : public ISmartDevice
     Q_PROPERTY(int highestFreezerTemp READ getHighestFreezerTemp CONSTANT)
 
 public:
-    explicit Fridge(const QString &name, QObject *parent = nullptr);
+    explicit Fridge(const QString &deviceId,const QString &name, QObject *parent = nullptr);
 
     int fridgeTemperature() const;
     int freezerTemperature() const;

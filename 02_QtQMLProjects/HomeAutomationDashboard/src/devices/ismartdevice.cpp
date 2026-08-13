@@ -1,7 +1,7 @@
 #include "ismartdevice.h"
 
 
-ISmartDevice::ISmartDevice(const QString& deviceNameVal, DeviceEnums::Type deviceTypeVal,bool stateVal, QObject *parent) : m_deviceName(deviceNameVal), m_deviceType(deviceTypeVal),m_powerState(stateVal),QObject(parent)
+ISmartDevice::ISmartDevice(const QString& deviceId,const QString& deviceNameVal, DeviceEnums::Type deviceTypeVal,bool stateVal, QObject *parent) : m_deviceId(deviceId),m_deviceName(deviceNameVal), m_deviceType(deviceTypeVal),m_powerState(stateVal),QObject(parent)
 {
 
 }
@@ -29,3 +29,9 @@ void ISmartDevice::setPowerState(bool state)
         emit powerStateChanged(m_powerState);
     }
 }
+
+QString ISmartDevice::getDeviceId() const
+{
+    return m_deviceId;
+}
+

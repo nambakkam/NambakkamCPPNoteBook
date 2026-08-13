@@ -1,7 +1,7 @@
 #include "smartplug.h"
 
-SmartPlug::SmartPlug(const QString &name, QObject *parent)
-    : ISmartDevice(name, DeviceEnums::SmartPlug, false, parent)
+SmartPlug::SmartPlug(const QString &deviceId, const QString &name, QObject *parent)
+    : ISmartDevice(deviceId, name, DeviceEnums::SmartPlug, false, parent)
     , m_currentPowerWatts(0.0)
     , m_totalEnergyKWh(0.0)
     , m_countdownSeconds(0)

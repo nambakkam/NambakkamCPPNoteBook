@@ -15,7 +15,7 @@ class AirConditioner : public ISmartDevice
     Q_PROPERTY(int highestTempSetting READ getHighestTempSetting CONSTANT)
 
 public:
-    explicit AirConditioner(const QString &name, QObject *parent = nullptr);
+    explicit AirConditioner(const QString &deviceId,const QString &name, QObject *parent = nullptr);
 
     int targetTemperature() const;
     DeviceEnums::FanSpeed fanSpeed() const;
