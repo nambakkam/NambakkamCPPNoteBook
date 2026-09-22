@@ -36,7 +36,7 @@ private:
     QString m_deviceId;
     QString m_deviceName;
     DeviceEnums::Type m_deviceType;
-
+private slots:
     void autoConnectStateSignals();
 
 

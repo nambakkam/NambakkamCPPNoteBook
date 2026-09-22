@@ -42,7 +42,7 @@ void ISmartDevice::autoConnectStateSignals() {
     QMetaMethod stateSignal = QMetaMethod::fromSignal(&ISmartDevice::stateChanged);
 
     // Iterate through all properties defined in derived classes
-    for (int i = meta->propertyOffset(); i < meta->propertyCount(); ++i) {
+    for (int i = 0; i < meta->propertyCount(); ++i) {
         QMetaProperty prop = meta->property(i);
         if (prop.hasNotifySignal()) {
             connect(this, prop.notifySignal(), this, stateSignal, Qt::UniqueConnection);

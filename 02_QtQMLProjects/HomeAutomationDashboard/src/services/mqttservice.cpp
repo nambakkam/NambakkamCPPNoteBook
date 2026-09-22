@@ -9,7 +9,7 @@ MqttService::MqttService(QObject *parent) : QObject(parent) {
         emit connected();
         
         // Subscribe to all light state updates
-        m_client->subscribe(QMqttTopicFilter("home/light/+/state"));
+        m_client->subscribe(QMqttTopicFilter("home/device/+/state"));
     });
 
     connect(m_client, &QMqttClient::messageReceived, this, &MqttService::onMessageReceived);
@@ -39,7 +39,7 @@ void MqttService::publishDeviceState(const QString &deviceId, const QJsonObject 
     if (m_client->state() != QMqttClient::Connected) return;
 
     // Outbound Topic: home/light/<device_id>/set
-    QString topic = QString("home/light/%1/set").arg(deviceId);
+    QString topic = QString("home/device/%1/set").arg(deviceId);
     QByteArray payload = QJsonDocument(state).toJson(QJsonDocument::Compact);
 
     m_client->publish(QMqttTopicName(topic), payload, 1 /* QoS 1 */);
